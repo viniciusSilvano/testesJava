@@ -7,6 +7,7 @@ tmp/
 *.class
 *~.nib
 *.class
+*~.class
 local.properties
 .settings/
 .sonarlint/
@@ -15,6 +16,7 @@ target
 target/
 .loadpath
 .recommenders
+.classpath
 
 # External tool builders
 .externalToolBuilders/
