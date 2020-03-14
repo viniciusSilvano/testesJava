@@ -9,6 +9,10 @@ tmp/
 *.class
 local.properties
 .settings/
+.sonarlint/
+.sonarlint
+target
+target/
 .loadpath
 .recommenders
 
