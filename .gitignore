@@ -17,6 +17,8 @@ target/
 .loadpath
 .recommenders
 .classpath
+*.lst
+*.war
 
 # External tool builders
 .externalToolBuilders/

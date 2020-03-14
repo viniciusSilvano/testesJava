@@ -5,8 +5,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
-import javax.ws.rs.core.Response.Status;
 
 import br.com.testeJava.bo.LivroService;
 
@@ -16,9 +14,16 @@ public class LivroRest {
 	@Inject
 	LivroService livroService;
 	
-	@GET()
+	@GET
+	@Path(value = "")
+	public Response getLivro() {
+		return Response.ok().build();
+	}
+	
+	@GET
 	@Path("{id}")
-	public ResponseBuilder getLivroPorId(@PathParam("id") Long id) {
-		return Response.status(Status.FOUND).entity(livroService.consultarLivroPorId(id));
+	public void getLivroPorId(@PathParam("id") Long id) {
+		System.out.println("entrou no get de livro por id");
+		//return Response.status(Status.FOUND).entity(livroService.consultarLivroPorId(id));
 	} 
 }
