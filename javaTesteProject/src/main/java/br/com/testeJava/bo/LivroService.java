@@ -6,9 +6,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.ejb.Local;
+import javax.ejb.Stateless;
+
 import br.com.testeJava.dto.LivroDto;
 import br.com.testeJava.entity.Livro;
 
+@Stateless
+@Local
 public class LivroService {
 
 	public final static List<Livro> db = 

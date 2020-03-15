@@ -11,6 +11,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import br.com.testeJava.bo.LivroService;
 import br.com.testeJava.dto.LivroDto;
 
@@ -24,8 +27,15 @@ public class LivroRest {
 	@Path(value = "")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getLivro() {
+		ObjectMapper mapper = new ObjectMapper();
 		List<LivroDto> livros = livroService.consultarLivros();
-		return Response.status(Status.OK).entity(livros).build();
+		String resposta;
+		try {
+			resposta = mapper.writeValueAsString(livros);
+		} catch (JsonProcessingException e) {
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+		return Response.status(Status.OK).entity(resposta).build();
 	}
 	
 	@GET
