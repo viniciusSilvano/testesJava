@@ -25,13 +25,13 @@
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/javax.ejb/ejb-api -->
+		<!-- https://mvnrepository.com/artifact/org.glassfish/javax.ejb -->
 		<dependency>
-			<groupId>javax.ejb</groupId>
-			<artifactId>ejb-api</artifactId>
-			<version>3.0</version>
-			<scope>provided</scope>
+		    <groupId>org.glassfish</groupId>
+		    <artifactId>javax.ejb</artifactId>
+		    <version>3.1</version>
 		</dependency>
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
