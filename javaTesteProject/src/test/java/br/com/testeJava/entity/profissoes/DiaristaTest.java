@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 public class DiaristaTest {
 	public static Diarista diarista;
+	
 	@BeforeAll
 	public static void beforeAll() {
 		diarista = new Diarista();

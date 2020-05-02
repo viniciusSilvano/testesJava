@@ -18,7 +18,7 @@ import br.com.testeJava.bo.LivroService;
 import br.com.testeJava.dto.LivroDto;
 
 @Path("/livro")
-public class LivroRest {
+public class LivroRest extends BaseRest {
 	
 	@Inject
 	LivroService livroService;
@@ -27,15 +27,7 @@ public class LivroRest {
 	@Path(value = "")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getLivro() {
-		ObjectMapper mapper = new ObjectMapper();
-		List<LivroDto> livros = livroService.consultarLivros();
-		String resposta;
-		try {
-			resposta = mapper.writeValueAsString(livros);
-		} catch (JsonProcessingException e) {
-			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
-		}
-		return Response.status(Status.OK).entity(resposta).build();
+		return Response.status(Status.OK).entity(parseListToJsonString(livroService.consultarLivros())).build();
 	}
 	
 	@GET

@@ -3,6 +3,17 @@ package br.com.testeJava.entity.profissoes;
 import br.com.testeJava.entity.enuns.ProfissaoEnum;
 
 public abstract class Profissao {
+	
+	public Profissao() {
+		super();
+	}
+
+	public Profissao(String nome, int idade) {
+		super();
+		this.nome = nome;
+		this.idade = idade;
+	}
+
 	public String nome;
 	public int idade;
 	

@@ -13,7 +13,6 @@ import br.com.testeJava.dto.LivroDto;
 import br.com.testeJava.entity.Livro;
 
 @Stateless
-@Local
 public class LivroService {
 
 	public final static List<Livro> db = 

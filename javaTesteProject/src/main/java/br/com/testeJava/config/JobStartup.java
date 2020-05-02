@@ -18,7 +18,7 @@ public class JobStartup {
 	
 	@PostConstruct
 	public void iniciarJobs() {
-		LOG.info("----------------------------INICIANDO JOBS----------------------------");
-		jobConfig.configTimer();
+		/*LOG.info("----------------------------INICIANDO JOBS----------------------------");
+		jobConfig.configTimer();*/
 	}
 }
