@@ -4,6 +4,8 @@ import br.com.testeJava.entity.enuns.ProfissaoEnum;
 
 public class Programador extends Profissao{
 	
+	public Programador() {}
+	
 	public Programador(String nome, int idade) {
 		super(nome,idade);
 	}
