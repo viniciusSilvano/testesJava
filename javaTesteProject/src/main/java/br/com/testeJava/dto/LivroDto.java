@@ -1,18 +1,39 @@
 package br.com.testeJava.dto;
 
-public class LivroDto implements IDto {
+import javax.ejb.Stateless;
+
+import br.com.testeJava.bo.infinispan.cache.Cacheavel;
+
+@Stateless
+public class LivroDto implements IDto,Cacheavel {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6958223360419716648L;
+	private Long id; 
+	private String nome;
+	
+	public LivroDto(Long id, String nome) {
+		super();
+		this.id = id;
+		this.nome = nome;
+	}
 	
 	public LivroDto(String nome) {
 		super();
 		this.nome = nome;
 	}
-
-	private String nome;
+	
+	@Override
+	public Long getId() {
+		return id;
+	}
+	
+	@Override
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getNome() {
 		return nome;

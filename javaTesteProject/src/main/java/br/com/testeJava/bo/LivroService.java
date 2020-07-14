@@ -6,26 +6,49 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
+import br.com.testeJava.bo.infinispan.cache.CacheLivro;
 import br.com.testeJava.dto.LivroDto;
 import br.com.testeJava.entity.Livro;
 
 @Stateless
 public class LivroService {
 
+	@Inject
+	private CacheLivro cacheLivro;
+	
 	public final static List<Livro> db = 
 			new ArrayList<>(Arrays.asList(
 					new Livro(0L, "teste"),
-					new Livro(1L, "teste2")
+					new Livro(1L, "teste1"),
+					new Livro(2L, "teste2"),
+					new Livro(3L, "teste3"),
+					new Livro(4L, "teste4"),
+					new Livro(5L, "teste5"),
+					new Livro(6L, "teste6"),
+					new Livro(7L, "teste7"),
+					new Livro(8L, "teste8"),
+					new Livro(9L, "teste9"),
+					new Livro(10L, "teste10"),
+					new Livro(11L, "teste11"),
+					new Livro(12L, "teste12"),
+					new Livro(13L, "teste13"),
+					new Livro(14L, "teste14"),
+					new Livro(15L, "teste15"),
+					new Livro(16L, "teste16")
 			)
 	);
 
 	public List<LivroDto> consultarLivros() {
 		return new ArrayList<LivroDto>(
-				db.parallelStream().map(
-						livro -> new LivroDto(livro.getNome())
+				db.stream().map(
+						livro -> {
+							LivroDto oLivro = new LivroDto(livro.getId(),livro.getNome());
+							cacheLivro.inserir(oLivro);
+							return oLivro;
+						}
 				).collect(Collectors.toList())
 		);
 	}
@@ -34,9 +57,15 @@ public class LivroService {
 		if (id == null || id.longValue() < 0) {
 			throw new IllegalArgumentException("id inválido");
 		}
-		Optional<Livro> livroOptional = db.parallelStream()
+		Optional<LivroDto> livroDtoOptional;
+		livroDtoOptional = Optional.ofNullable(cacheLivro.recuperar(id));
+		if(!livroDtoOptional.isPresent()){
+			Optional<Livro> livroOptional = db.parallelStream()
 				.filter(livro -> livro.getId().longValue() == id.longValue())
 				.findFirst();
-		return new LivroDto(livroOptional.isPresent() ? livroOptional.get().getNome() : null);
+			return new LivroDto(livroOptional.isPresent() ? livroOptional.get().getNome() : null);
+		}else {
+			return livroDtoOptional.get();
+		}
 	}
 }
