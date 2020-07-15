@@ -9,25 +9,23 @@ import javax.inject.Inject;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.testeJava.bo.infinispan.ClusteredCache;
+import br.com.testeJava.bo.infinispan.cache.abstraction.ClusteredCacheAbstract;
 import br.com.testeJava.dto.LivroDto;
 
 @Stateless
-public class CacheLivro {
+public class CacheLivro extends ClusteredCacheAbstract<LivroDto> {
 	
 	@Inject
 	private ClusteredCache cacheManager;
 		
-	private ObjectMapper objectMapper = new ObjectMapper();
-	
 	private final static String CHAVE = CacheLivro.class.getName();
 
 	public void inserir(LivroDto entity){
 		String json;
 		try {
-			json = objectMapper.writeValueAsString(entity);
+			json = this.serializar(entity);
 			cacheManager.obterCache(CHAVE).put(entity.getId(), json);
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
@@ -39,7 +37,7 @@ public class CacheLivro {
 		LivroDto livro = null;
 		if(Objects.nonNull(cacheManager.obterCache(CHAVE).get(id))) {
 			try {
-				livro = objectMapper.readValue(((String) cacheManager.obterCache(CHAVE).get(id)), LivroDto.class);
+				livro = this.deserializar((String) cacheManager.obterCache(CHAVE).get(id), LivroDto.class);
 			} catch (JsonParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

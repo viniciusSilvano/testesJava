@@ -19,10 +19,7 @@ public class ClusteredCache extends CacheManager {
 				.defaultClusteredBuilder()
 				.globalJmxStatistics()
 				.allowDuplicateDomains(true)
-				.enable().build();
-				/*.serialization()
-				.marshaller(new InfinispanMarshaller2())*/
-				
+				.enable().build();				
 	}
 
 	@Override
