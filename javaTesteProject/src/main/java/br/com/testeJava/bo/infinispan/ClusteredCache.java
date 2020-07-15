@@ -9,9 +9,6 @@ import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.infinispan.configuration.global.GlobalConfiguration;
 import org.infinispan.configuration.global.GlobalConfigurationBuilder;
 
-import br.com.testeJava.bo.infinispan.cache.marshallers.InfinispanMarshaller;
-import br.com.testeJava.bo.infinispan.cache.marshallers.InfinispanMarshaller2;
-
 @Startup
 @Stateless
 public class ClusteredCache extends CacheManager {
