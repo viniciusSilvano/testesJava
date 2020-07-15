@@ -1,13 +1,17 @@
 package br.com.testeJava.bo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import br.com.testeJava.bo.infinispan.cache.CacheLivro;
 import br.com.testeJava.dto.LivroDto;
@@ -41,16 +45,18 @@ public class LivroService {
 			)
 	);
 
-	public List<LivroDto> consultarLivros() {
-		return new ArrayList<LivroDto>(
-				db.stream().map(
-						livro -> {
-							LivroDto oLivro = new LivroDto(livro.getId(),livro.getNome());
-							cacheLivro.inserir(oLivro);
-							return oLivro;
-						}
-				).collect(Collectors.toList())
-		);
+	public List<LivroDto> consultarLivros(){
+			List<LivroDto> livros =  new ArrayList<LivroDto>();
+			for(Livro livro: db) {
+				if(Objects.isNull(cacheLivro.recuperar(livro.getId()))) {
+					LivroDto oLivro = new LivroDto(livro.getId(),livro.getNome());
+					cacheLivro.inserir(oLivro);
+					livros.add(oLivro);
+				}else {
+					livros.add(cacheLivro.recuperar(livro.getId()));
+				}
+			}
+			return livros;
 	}
 
 	public LivroDto consultarLivroPorId(Long id) {

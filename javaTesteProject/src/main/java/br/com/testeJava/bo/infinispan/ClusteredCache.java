@@ -9,6 +9,9 @@ import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.infinispan.configuration.global.GlobalConfiguration;
 import org.infinispan.configuration.global.GlobalConfigurationBuilder;
 
+import br.com.testeJava.bo.infinispan.cache.marshallers.InfinispanMarshaller;
+import br.com.testeJava.bo.infinispan.cache.marshallers.InfinispanMarshaller2;
+
 @Startup
 @Stateless
 public class ClusteredCache extends CacheManager {
@@ -21,13 +24,13 @@ public class ClusteredCache extends CacheManager {
 				.allowDuplicateDomains(true)
 				.enable().build();
 				/*.serialization()
-				.marshaller(new JBossMarshaller())*/
+				.marshaller(new InfinispanMarshaller2())*/
 				
 	}
 
 	@Override
 	protected Configuration getConfiguration() {
-		return new ConfigurationBuilder().clustering().cacheMode(CacheMode.INVALIDATION_SYNC).build();
+		return new ConfigurationBuilder().clustering().cacheMode(CacheMode.REPL_ASYNC).build();
 	}
 	
 }
