@@ -4,6 +4,8 @@ import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.ejb.Lock;
+import javax.ejb.LockType;
 import javax.inject.Inject;
 
 import org.infinispan.Cache;
@@ -38,6 +40,7 @@ public abstract class CacheManager {
 		cacheManager.removeCache(chave);
 	}
 	
+	@Lock(LockType.READ)
 	public <K, V> Cache<K, V> obterCache(String chave){
 		Cache<K, V> cache = cacheManager.getCache(chave);
 		initCacheLog(chave,cache);

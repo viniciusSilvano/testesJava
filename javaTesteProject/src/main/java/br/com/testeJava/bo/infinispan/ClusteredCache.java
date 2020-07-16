@@ -1,7 +1,7 @@
 package br.com.testeJava.bo.infinispan;
 
+import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.ejb.Stateless;
 
 import org.infinispan.configuration.cache.CacheMode;
 import org.infinispan.configuration.cache.Configuration;
@@ -10,7 +10,7 @@ import org.infinispan.configuration.global.GlobalConfiguration;
 import org.infinispan.configuration.global.GlobalConfigurationBuilder;
 
 @Startup
-@Stateless
+@Singleton
 public class ClusteredCache extends CacheManager {
 
 	@Override
