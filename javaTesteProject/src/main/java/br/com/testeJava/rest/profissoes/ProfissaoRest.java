@@ -7,19 +7,30 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import br.com.testeJava.bo.BaseService;
 import br.com.testeJava.bo.profissoes.ProfissaoService;
+import br.com.testeJava.bo.profissoes.qualifier.ProfissaoServiceQualifier;
 import br.com.testeJava.rest.BaseRest;
 
 @Path("/profissoes")
 public class ProfissaoRest extends BaseRest {
 	
 	@Inject
-	ProfissaoService profissaoService;
+	@ProfissaoServiceQualifier
+	BaseService profissaoService;
+	
+	@Override
+	protected BaseService getService() {
+		// TODO Auto-generated method stub
+		return profissaoService;
+	}
 	
 	@GET
 	@Path(value = "")
 	@Produces(value = MediaType.APPLICATION_JSON)
 	public Response listarProfissoes(){
-		return Response.ok().entity(parseListToJsonString(profissaoService.recuperarProfissoes())).build();
+		return Response.ok().entity(parseListToJsonString(((ProfissaoService)getService()).recuperarProfissoes())).build();
 	}
+
+
 }

@@ -1,4 +1,4 @@
-package br.com.testeJava.rest;
+package br.com.testeJava.rest.marshaller;
 
 import java.io.IOException;
 import java.util.ArrayList;

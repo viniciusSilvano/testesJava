@@ -15,7 +15,7 @@ import org.infinispan.transaction.TransactionMode;
 import org.infinispan.transaction.lookup.JBossStandaloneJTAManagerLookup;
 import org.infinispan.util.concurrent.IsolationLevel;
 
-@Startup
+//@Startup
 @Singleton
 public class ClusteredCache extends CacheManager {
 

@@ -8,7 +8,7 @@ import javax.ejb.Startup;
 import javax.inject.Inject;
 
 @Singleton
-@Startup
+//@Startup
 public class JobStartup {
 	
 	@Inject
@@ -18,7 +18,7 @@ public class JobStartup {
 	
 	@PostConstruct
 	public void iniciarJobs() {
-		/*LOG.info("----------------------------INICIANDO JOBS----------------------------");
-		jobConfig.configTimer();*/
+		LOG.info("----------------------------INICIANDO JOBS----------------------------");
+		jobConfig.configTimer();
 	}
 }
