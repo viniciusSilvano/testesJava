@@ -2,6 +2,7 @@ package br.com.testeJava.entity.testeDesempenho;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,10 +18,10 @@ public class EntidadeDeTeste_1 {
     @SequenceGenerator(sequenceName = "Entidade_Teste_1_SEQ", allocationSize = 1, name = "Entidade_Teste_1_SEQ")
 	private Long id;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.REMOVE)
 	private List<EntidadeDeTeste_1_1> entidadesFilhas_1;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.REMOVE)
 	private List<EntidadeDeTeste_1_2> entidadesFilhas_2;
 
 	public List<EntidadeDeTeste_1_1> getEntidadesFilhas_1() {

@@ -1,10 +1,12 @@
 package br.com.testeJava.entity.testeDesempenho;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 import br.com.testeJava.entity.IEntidade;
@@ -20,8 +22,8 @@ public class EntidadeDeTeste implements IEntidade {
 	@Column
 	private String nome;
 	
-	/*@OneToOne
-	private EntidadeDeTeste_1 entidadeFilha;*/
+	@OneToOne(cascade = CascadeType.REMOVE)
+	private EntidadeDeTeste_1 entidadeFilha;
 
 	public Long getId() {
 		return id;
