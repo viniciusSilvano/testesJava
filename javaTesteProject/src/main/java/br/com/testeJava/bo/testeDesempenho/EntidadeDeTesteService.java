@@ -39,18 +39,6 @@ public class EntidadeDeTesteService extends BaseService {
 		((EntidadeDeTesteDAO) dao).cadastrar(entidade);
 	}
 	
-	public void verificarTempoListagem() {
-		Long inicio = System.currentTimeMillis();
-		listar();
-		System.out.println(String.format("levou %d segundos", (System.currentTimeMillis() - inicio)/1000));
-	}
-	
-	public void verificarTempoListagemPorId(Long id) {
-		Long inicio = System.currentTimeMillis();
-		listarPorId(id);
-		System.out.println(String.format("levou %d segundos", (System.currentTimeMillis() - inicio)/1000));
-	}
-	
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void realizarMockBD(Long quantidade) {
 		Long ultimoId = consultarUltimoId();
@@ -65,12 +53,20 @@ public class EntidadeDeTesteService extends BaseService {
 		}
 	}
 	
-	private List<EntidadeDeTeste> listar() {
+	public List<EntidadeDeTeste> listar() {
 		return ((EntidadeDeTesteDAO) dao).listar();
 	}
 	
-	private EntidadeDeTeste listarPorId(Long id) {
+	public EntidadeDeTeste listarPorId(Long id) {
 		return ((EntidadeDeTesteDAO) dao).listarPorId(id);
+	}
+	
+	public List<EntidadeDeTeste> listarComFilhas(){
+		return ((EntidadeDeTesteDAO) dao).listarComFilhas();
+	}
+	
+	public EntidadeDeTeste listarPorIdComFilhas(Long id){
+		return ((EntidadeDeTesteDAO) dao).listarPorIdComFilhas(id);
 	}
 	
 	private Long consultarUltimoId() {

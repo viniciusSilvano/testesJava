@@ -52,9 +52,28 @@ public class EntidadeDeTesteDAO extends BaseDAO{
 		TypedQuery<EntidadeDeTeste> query = getEntityManager().createNamedQuery(sql.toString(), EntidadeDeTeste.class);
 		return query.getResultList();
 	}
+	
+	public List<EntidadeDeTeste> listarComFilhas(){
+		StringBuilder sql = new StringBuilder("SELECT * FROM EntidadeDeTeste e ");
+		sql.append("LEFT JOIN e.entidadeFilha ef ");
+		sql.append("LEFT JOIN FETCH ef.entidadesFilhas_1 ef1 ");
+		sql.append("LEFT JOIN FETCH ef.entidadesFilhas_2 ef2 ");
+		TypedQuery<EntidadeDeTeste> query = getEntityManager().createNamedQuery(sql.toString(), EntidadeDeTeste.class);
+		return query.getResultList();
+	}
 
 	public EntidadeDeTeste listarPorId(Long id) {
 		StringBuilder sql = new StringBuilder("SELECT e FROM EntidadeDeTeste e WHERE e.id = :id ");
+		TypedQuery<EntidadeDeTeste> query =  getEntityManager().createNamedQuery(sql.toString(), EntidadeDeTeste.class);
+		query.setParameter("id", id);
+		return query.getSingleResult();
+	}
+	
+	public EntidadeDeTeste listarPorIdComFilhas(Long id) {
+		StringBuilder sql = new StringBuilder("SELECT e FROM EntidadeDeTeste e WHERE e.id = :id ");
+		sql.append("LEFT JOIN e.entidadeFilha ef ");
+		sql.append("LEFT JOIN FETCH ef.entidadesFilhas_1 ef1 ");
+		sql.append("LEFT JOIN FETCH ef.entidadesFilhas_2 ef2 ");
 		TypedQuery<EntidadeDeTeste> query =  getEntityManager().createNamedQuery(sql.toString(), EntidadeDeTeste.class);
 		query.setParameter("id", id);
 		return query.getSingleResult();

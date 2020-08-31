@@ -41,12 +41,24 @@ public class EntidadeDeTesteRest extends BaseRest {
 	@GET
 	@Path("/verificarTempoListagem")
 	public void verificarTempoListagem() {
-		((EntidadeDeTesteService) service).verificarTempoListagem();
+		((EntidadeDeTesteService) service).executarTesteDeTempo(() -> ((EntidadeDeTesteService) service).listar());
 	}
 	
 	@GET
 	@Path("/{id}/verificarTempoListagemPorId")
 	public void verificarTempoListagemPorId(@PathParam("id") Long id) {
-		((EntidadeDeTesteService) service).verificarTempoListagemPorId(id);
+		((EntidadeDeTesteService) service).executarTesteDeTempo(() -> ((EntidadeDeTesteService) service).listarPorId(id));
+	}
+	
+	@GET
+	@Path("/verificarTempoListagemComFilhas")
+	public void verificarTempoListagemComFilhas() {
+		((EntidadeDeTesteService) service).executarTesteDeTempo(() -> ((EntidadeDeTesteService) service).listarComFilhas());
+	}
+	
+	@GET
+	@Path("/{id}/verificarTempoListagemPorIdComFilhas")
+	public void verificarTempoListagemPorIdComFilhas(@PathParam("id") Long id) {
+		((EntidadeDeTesteService) service).executarTesteDeTempo(() -> ((EntidadeDeTesteService) service).listarPorIdComFilhas(id));
 	}
 }
