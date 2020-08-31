@@ -7,6 +7,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import br.com.testeJava.bo.BaseService;
 import br.com.testeJava.bo.testeDesempenho.EntidadeDeTesteService;
@@ -40,25 +41,33 @@ public class EntidadeDeTesteRest extends BaseRest {
 	
 	@GET
 	@Path("/verificarTempoListagem")
-	public void verificarTempoListagem() {
-		((EntidadeDeTesteService) service).executarTesteDeTempo(() -> ((EntidadeDeTesteService) service).listar());
+	public Response verificarTempoListagem() {
+		return Response.ok().entity(
+				((EntidadeDeTesteService) service).executarTesteDeTempo(() -> ((EntidadeDeTesteService) service).listar())
+		).build();
 	}
 	
 	@GET
 	@Path("/{id}/verificarTempoListagemPorId")
-	public void verificarTempoListagemPorId(@PathParam("id") Long id) {
-		((EntidadeDeTesteService) service).executarTesteDeTempo(() -> ((EntidadeDeTesteService) service).listarPorId(id));
+	public Response verificarTempoListagemPorId(@PathParam("id") Long id) {
+		return Response.ok().entity(
+				((EntidadeDeTesteService) service).executarTesteDeTempo(() -> ((EntidadeDeTesteService) service).listarPorId(id))
+		).build();
 	}
 	
 	@GET
 	@Path("/verificarTempoListagemComFilhas")
-	public void verificarTempoListagemComFilhas() {
-		((EntidadeDeTesteService) service).executarTesteDeTempo(() -> ((EntidadeDeTesteService) service).listarComFilhas());
+	public Response verificarTempoListagemComFilhas() {
+		return Response.ok().entity(
+				((EntidadeDeTesteService) service).executarTesteDeTempo(() -> ((EntidadeDeTesteService) service).listarComFilhas())
+		).build();
 	}
 	
 	@GET
 	@Path("/{id}/verificarTempoListagemPorIdComFilhas")
-	public void verificarTempoListagemPorIdComFilhas(@PathParam("id") Long id) {
-		((EntidadeDeTesteService) service).executarTesteDeTempo(() -> ((EntidadeDeTesteService) service).listarPorIdComFilhas(id));
+	public Response verificarTempoListagemPorIdComFilhas(@PathParam("id") Long id) {
+		return Response.ok().entity(
+				((EntidadeDeTesteService) service).executarTesteDeTempo(() -> ((EntidadeDeTesteService) service).listarPorIdComFilhas(id))
+		).build();
 	}
 }
