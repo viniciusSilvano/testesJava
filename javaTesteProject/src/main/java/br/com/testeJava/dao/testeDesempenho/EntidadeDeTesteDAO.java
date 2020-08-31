@@ -8,6 +8,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -34,7 +35,18 @@ public class EntidadeDeTesteDAO extends BaseDAO{
 		getEntityManager().persist(entidade);
 		return entidade;
 	}
-
+	
+	public Long consultarUltimoId() {
+		StringBuilder sql = new StringBuilder("SELECT e.id FROM EntidadeDeTeste e ORDER BY e.id DESC ");
+		TypedQuery<Long> query = getEntityManager().createQuery(sql.toString(), Long.class);
+		query.setMaxResults(1);
+		try {
+			return query.getSingleResult();
+		}catch(NoResultException e) {
+			return 0L;
+		}
+	}
+		
 	public List<EntidadeDeTeste> listar() {
 		StringBuilder sql = new StringBuilder("SELECT e FROM EntidadeDeTeste e ");
 		TypedQuery<EntidadeDeTeste> query = getEntityManager().createNamedQuery(sql.toString(), EntidadeDeTeste.class);

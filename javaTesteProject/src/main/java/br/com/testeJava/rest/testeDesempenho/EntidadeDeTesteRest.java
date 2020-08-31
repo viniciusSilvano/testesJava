@@ -2,8 +2,10 @@ package br.com.testeJava.rest.testeDesempenho;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
 import br.com.testeJava.bo.BaseService;
@@ -28,5 +30,23 @@ public class EntidadeDeTesteRest extends BaseRest {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void cadastrar(EntidadeDeTeste entity) {
 		((EntidadeDeTesteService) service).cadastrarEntidadeDeTeste(entity);
+	}
+	
+	@POST
+	@Path("/realizarMock")
+	public void solicitarMock(Long quantidade) {
+		((EntidadeDeTesteService) service).realizarMockBD(quantidade);
+	}
+	
+	@GET
+	@Path("/verificarTempoListagem")
+	public void verificarTempoListagem() {
+		((EntidadeDeTesteService) service).verificarTempoListagem();
+	}
+	
+	@GET
+	@Path("/{id}/verificarTempoListagemPorId")
+	public void verificarTempoListagemPorId(@PathParam("id") Long id) {
+		((EntidadeDeTesteService) service).verificarTempoListagemPorId(id);
 	}
 }

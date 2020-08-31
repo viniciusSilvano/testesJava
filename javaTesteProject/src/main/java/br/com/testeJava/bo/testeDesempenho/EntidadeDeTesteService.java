@@ -1,5 +1,8 @@
 package br.com.testeJava.bo.testeDesempenho;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -13,6 +16,9 @@ import br.com.testeJava.dao.testeDesempenho.BaseDAO;
 import br.com.testeJava.dao.testeDesempenho.EntidadeDeTesteDAO;
 import br.com.testeJava.dao.testeDesempenho.qualifiers.EntidadeDeTesteDAOQualifier;
 import br.com.testeJava.entity.testeDesempenho.EntidadeDeTeste;
+import br.com.testeJava.entity.testeDesempenho.EntidadeDeTeste_1;
+import br.com.testeJava.entity.testeDesempenho.EntidadeDeTeste_1_1;
+import br.com.testeJava.entity.testeDesempenho.EntidadeDeTeste_1_2;
 
 @Stateless
 @EntidadeDeTesteServiceQualifier
@@ -31,5 +37,47 @@ public class EntidadeDeTesteService extends BaseService {
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void cadastrarEntidadeDeTeste(EntidadeDeTeste entidade) {
 		((EntidadeDeTesteDAO) dao).cadastrar(entidade);
+	}
+	
+	public void verificarTempoListagem() {
+		Long inicio = System.currentTimeMillis();
+		listar();
+		System.out.println(String.format("levou %d segundos", (System.currentTimeMillis() - inicio)/1000));
+	}
+	
+	public void verificarTempoListagemPorId(Long id) {
+		Long inicio = System.currentTimeMillis();
+		listarPorId(id);
+		System.out.println(String.format("levou %d segundos", (System.currentTimeMillis() - inicio)/1000));
+	}
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void realizarMockBD(Long quantidade) {
+		Long ultimoId = consultarUltimoId();
+		for(int i = 0; i < quantidade.longValue(); i++) {
+			ultimoId++;
+			cadastrarEntidadeDeTeste(
+					new EntidadeDeTeste(gerarNomeMock(ultimoId), 
+						new EntidadeDeTeste_1(gerarNomeMock(ultimoId), 
+								Arrays.asList(new EntidadeDeTeste_1_1(gerarNomeMock(ultimoId))), 
+								Arrays.asList(new EntidadeDeTeste_1_2(gerarNomeMock(ultimoId)))))
+			);
+		}
+	}
+	
+	private List<EntidadeDeTeste> listar() {
+		return ((EntidadeDeTesteDAO) dao).listar();
+	}
+	
+	private EntidadeDeTeste listarPorId(Long id) {
+		return ((EntidadeDeTesteDAO) dao).listarPorId(id);
+	}
+	
+	private Long consultarUltimoId() {
+		return ((EntidadeDeTesteDAO) dao).consultarUltimoId();
+	}
+		
+	private String gerarNomeMock(Long id) {
+		return String.format("EntidadeDeTeste_N_%d", id);
 	}
 }
