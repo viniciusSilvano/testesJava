@@ -1,12 +1,15 @@
 package br.com.testeJava.entity.testeDesempenho;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
-@Entity(name = "TB_ENTIDADE_DE_TESTE_1_1")
+@Entity
+@Table(name = "TB_ENTIDADE_DE_TESTE_1_1")
 public class EntidadeDeTeste_1_1 {
 	
 	@Id
@@ -14,4 +17,29 @@ public class EntidadeDeTeste_1_1 {
     @SequenceGenerator(sequenceName = "Entidade_Teste_1_1_SEQ", allocationSize = 1, name = "Entidade_Teste_1_1_SEQ")
 	private Long id;
 	
+	@Column
+	private String nome;
+
+	public EntidadeDeTeste_1_1() {}
+	
+	public EntidadeDeTeste_1_1(String nome) {
+		super();
+		this.nome = nome;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 }

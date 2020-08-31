@@ -8,10 +8,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import br.com.testeJava.entity.IEntidade;
 
-@Entity(name = "TB_ENTIDADE_DE_TESTE")
+@Entity
+@Table(name = "TB_ENTIDADE_DE_TESTE")
 public class EntidadeDeTeste implements IEntidade {
 	
 	@Id
@@ -22,8 +24,16 @@ public class EntidadeDeTeste implements IEntidade {
 	@Column
 	private String nome;
 	
-	@OneToOne(cascade = CascadeType.REMOVE)
+	@OneToOne(cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
 	private EntidadeDeTeste_1 entidadeFilha;
+
+	public EntidadeDeTeste() {}
+	
+	public EntidadeDeTeste(String nome, EntidadeDeTeste_1 entidadeFilha) {
+		super();
+		this.nome = nome;
+		this.entidadeFilha = entidadeFilha;
+	}
 
 	public Long getId() {
 		return id;
