@@ -7,7 +7,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 
 import br.com.testeJava.bo.BaseService;
-import br.com.testeJava.bo.IService;
 import br.com.testeJava.bo.testeDesempenho.EntidadeDeTesteService;
 import br.com.testeJava.bo.testeDesempenho.qualifiers.EntidadeDeTesteServiceQualifier;
 import br.com.testeJava.entity.testeDesempenho.EntidadeDeTeste;

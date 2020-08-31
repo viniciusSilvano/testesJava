@@ -7,7 +7,6 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
-import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -16,16 +15,17 @@ import br.com.testeJava.dao.testeDesempenho.qualifiers.EntidadeDeTesteDAOQualifi
 import br.com.testeJava.entity.testeDesempenho.EntidadeDeTeste;
 
 @Stateless
-@TransactionManagement(TransactionManagementType.CONTAINER)
-@Dependent
 @EntidadeDeTesteDAOQualifier
-public class EntidadeDeTesteDAO implements IDAO{
+@TransactionManagement(TransactionManagementType.CONTAINER)
+public class EntidadeDeTesteDAO extends BaseDAO{
 
 	@PersistenceContext(unitName = "testeDesempenho")
 	private EntityManager entityManager;
 	
 	@Override
 	public EntityManager getEntityManager() {
+		/*EntityManagerFactory factory = Persistence.createEntityManagerFactory("testeDesempenho");
+		return factory.createEntityManager();*/
 		return entityManager;
 	}
 

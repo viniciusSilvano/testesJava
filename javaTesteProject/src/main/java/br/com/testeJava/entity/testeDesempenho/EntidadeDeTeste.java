@@ -41,11 +41,11 @@ public class EntidadeDeTeste implements IEntidade {
 		this.nome = nome;
 	}
 
-	/*public EntidadeDeTeste_1 getEntidadeFilha() {
+	public EntidadeDeTeste_1 getEntidadeFilha() {
 		return entidadeFilha;
 	}
 
 	public void setEntidadeFilha(EntidadeDeTeste_1 entidadeFilha) {
 		this.entidadeFilha = entidadeFilha;
-	}*/
+	}
 }
