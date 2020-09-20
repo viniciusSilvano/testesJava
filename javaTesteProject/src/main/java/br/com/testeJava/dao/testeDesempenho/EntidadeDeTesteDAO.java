@@ -49,7 +49,7 @@ public class EntidadeDeTesteDAO extends BaseDAO{
 		
 	public List<EntidadeDeTeste> listar() {
 		StringBuilder sql = new StringBuilder("SELECT e FROM EntidadeDeTeste e ");
-		TypedQuery<EntidadeDeTeste> query = getEntityManager().createNamedQuery(sql.toString(), EntidadeDeTeste.class);
+		TypedQuery<EntidadeDeTeste> query = getEntityManager().createQuery(sql.toString(), EntidadeDeTeste.class);
 		return query.getResultList();
 	}
 	
@@ -58,13 +58,13 @@ public class EntidadeDeTesteDAO extends BaseDAO{
 		sql.append("LEFT JOIN e.entidadeFilha ef ");
 		sql.append("LEFT JOIN FETCH ef.entidadesFilhas_1 ef1 ");
 		sql.append("LEFT JOIN FETCH ef.entidadesFilhas_2 ef2 ");
-		TypedQuery<EntidadeDeTeste> query = getEntityManager().createNamedQuery(sql.toString(), EntidadeDeTeste.class);
+		TypedQuery<EntidadeDeTeste> query = getEntityManager().createQuery(sql.toString(), EntidadeDeTeste.class);
 		return query.getResultList();
 	}
 
 	public EntidadeDeTeste listarPorId(Long id) {
 		StringBuilder sql = new StringBuilder("SELECT e FROM EntidadeDeTeste e WHERE e.id = :id ");
-		TypedQuery<EntidadeDeTeste> query =  getEntityManager().createNamedQuery(sql.toString(), EntidadeDeTeste.class);
+		TypedQuery<EntidadeDeTeste> query =  getEntityManager().createQuery(sql.toString(), EntidadeDeTeste.class);
 		query.setParameter("id", id);
 		return query.getSingleResult();
 	}
@@ -74,7 +74,7 @@ public class EntidadeDeTesteDAO extends BaseDAO{
 		sql.append("LEFT JOIN e.entidadeFilha ef ");
 		sql.append("LEFT JOIN FETCH ef.entidadesFilhas_1 ef1 ");
 		sql.append("LEFT JOIN FETCH ef.entidadesFilhas_2 ef2 ");
-		TypedQuery<EntidadeDeTeste> query =  getEntityManager().createNamedQuery(sql.toString(), EntidadeDeTeste.class);
+		TypedQuery<EntidadeDeTeste> query =  getEntityManager().createQuery(sql.toString(), EntidadeDeTeste.class);
 		query.setParameter("id", id);
 		return query.getSingleResult();
 	}
