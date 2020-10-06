@@ -1,0 +1,5 @@
+{
+	meuObjetoInterno: {
+		nome:"vini"
+	}
+}
