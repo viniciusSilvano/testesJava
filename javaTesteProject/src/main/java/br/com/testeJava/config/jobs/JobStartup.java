@@ -1,4 +1,4 @@
-package br.com.testeJava.config;
+package br.com.testeJava.config.jobs;
 
 import java.util.logging.Logger;
 

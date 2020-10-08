@@ -120,6 +120,13 @@
 		    <artifactId>json</artifactId>
 		    <version>20190722</version>
 		</dependency>
+		
+		<!-- Elastic search -->
+		<dependency>
+		    <groupId>org.elasticsearch.client</groupId>
+		    <artifactId>elasticsearch-rest-client</artifactId>
+		    <version>7.9.2</version>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>

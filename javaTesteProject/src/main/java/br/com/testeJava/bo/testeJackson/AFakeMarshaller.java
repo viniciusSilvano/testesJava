@@ -6,20 +6,18 @@ import javax.ejb.Stateless;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.com.testeJava.util.JsonUtils;
+
 @Stateless
 public class AFakeMarshaller{
 	
-
-	private ObjectMapper objectMapper = new ObjectMapper();
-	
 	public String objectToObjectStream(Object obj) throws IOException {
-		String json = objectMapper.writeValueAsString(obj);
-		System.out.println(json);
-		return json;
+		return JsonUtils.parseObjectToStringJSON(obj);
 	}
 
 	public Object objectFromObjectStream(String json) throws IOException, ClassNotFoundException {
-		return objectMapper.readValue(json, Object.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		return JsonUtils.parseStringJSONToObject(json);
 	}
 
 }

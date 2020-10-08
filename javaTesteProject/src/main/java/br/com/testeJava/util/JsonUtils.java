@@ -1,12 +1,18 @@
 package br.com.testeJava.util;
 
+import java.io.IOException;
 import java.util.Objects;
 
 import org.json.JSONObject;
 
-import protostream.com.google.gson.JsonObject;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonUtils {
+	
+	
 	public static JSONObject getNullableJsonObject(JSONObject target, String key) {
 		if(Objects.nonNull(target) && !target.isEmpty()) {
 			JSONObject targetedObject = target.getJSONObject(key);
@@ -15,5 +21,17 @@ public class JsonUtils {
 			}
 		}
 		return null;
+	}
+	
+	public static String parseObjectToStringJSON(Object obj) throws JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		String json = objectMapper.writeValueAsString(obj);
+		System.out.println(json);
+		return json;
+	}
+	
+	public static Object parseStringJSONToObject(String json) throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		return objectMapper.readValue(json, Object.class);
 	}
 }
