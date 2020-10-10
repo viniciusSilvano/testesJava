@@ -5,16 +5,18 @@ import java.io.IOException;
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
 
+import br.com.testeJava.entity.IEntidade;
+
 public abstract class IElasticSearchBO{
 	
 	private RestClient getClient() {
 		return RestClient.builder(new HttpHost("localhost",9200,"http")).build();
 	}
 	
-	public void inserirIndiceDocumento(String url, Long id, Object obj) {
+	public void inserirIndiceDocumento(IEntidade obj) {
 		RestClient client = getClient();
 		try {
-			inserirIndiceDocumentoAbstract(url,id,obj,client);
+			inserirIndiceDocumentoAbstract(obj,client);
 		}finally {
 			try {
 				client.close();
@@ -24,5 +26,5 @@ public abstract class IElasticSearchBO{
 		}
 	}
 	
-	protected abstract void  inserirIndiceDocumentoAbstract(String url, Long id,Object obj, RestClient client);
+	protected abstract void  inserirIndiceDocumentoAbstract(IEntidade obj, RestClient client);
 }

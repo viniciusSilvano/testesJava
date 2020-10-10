@@ -10,14 +10,15 @@ import org.elasticsearch.client.RestClient;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import br.com.testeJava.entity.IEntidade;
 import br.com.testeJava.util.JsonUtils;
 
 @Stateless
 public class ElasticSearchBO  extends IElasticSearchBO {
 
 	@Override
-	protected void inserirIndiceDocumentoAbstract(String url, Long id, Object obj, RestClient client) {
-		Request request = new Request("PUT", String.format("/elastic/_doc/", id));
+	protected void inserirIndiceDocumentoAbstract(IEntidade obj, RestClient client) {
+		Request request = new Request("PUT", String.format("/elastic/_doc/", obj.getId()));
 		try {
 			request.setJsonEntity(JsonUtils.parseObjectToStringJSON(obj));
 			Response response =  client.performRequest(request);
