@@ -10,6 +10,7 @@ import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import br.com.testeJava.dao.testeDesempenho.qualifiers.EntidadeDeTesteDAOQualifier;
@@ -82,6 +83,19 @@ public class EntidadeDeTesteDAO extends BaseDAO{
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void remover(EntidadeDeTeste entidade) {
 		getEntityManager().remove(entidade);
+	}
+
+	public void cadastrarPorPaiEntidadeDeTeste1(Long idPai) {
+		StringBuilder sql = new StringBuilder("INSERT INTO EntidadeDeTeste_1 (nome) ");
+		sql.append("select CONCAT(pai.nome,:complementoNome) ");
+		sql.append("from EntidadeDeTeste pai where pai.id = :idPai ");
+		
+		String completementoNome = "jujuba";
+		
+		Query query = getEntityManager().createQuery(sql.toString());
+		query.setParameter("idPai", idPai);
+		query.setParameter("complementoNome", completementoNome);
+		query.executeUpdate();
 	}
 
 }

@@ -34,6 +34,12 @@ public class EntidadeDeTesteRest extends BaseRest {
 	}
 	
 	@POST
+	@Path("/teste-insert-select")
+	public void cadastrarPorPaiEntidadeDeTeste1(Long idPai) {
+		((EntidadeDeTesteService) service).cadastrarPorPaiEntidadeDeTeste1(idPai);
+	}
+	
+	@POST
 	@Path("/realizarMock")
 	public void solicitarMock(Long quantidade) {
 		((EntidadeDeTesteService) service).realizarMockBD(quantidade);

@@ -69,6 +69,10 @@ public class EntidadeDeTesteService extends BaseService {
 		return ((EntidadeDeTesteDAO) dao).listarPorIdComFilhas(id);
 	}
 	
+	public void cadastrarPorPaiEntidadeDeTeste1(Long idPai) {
+		((EntidadeDeTesteDAO) dao).cadastrarPorPaiEntidadeDeTeste1(idPai);
+	}
+	
 	private Long consultarUltimoId() {
 		return ((EntidadeDeTesteDAO) dao).consultarUltimoId();
 	}
