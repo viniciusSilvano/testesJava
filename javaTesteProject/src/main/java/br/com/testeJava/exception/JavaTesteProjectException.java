@@ -1,14 +1,19 @@
 package br.com.testeJava.exception;
 
-import javax.ws.rs.core.Response.ResponseBuilder;
-
-public class RestException extends Exception {
-	
-	private ResponseBuilder response;
-
+public class JavaTesteProjectException extends Exception {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4976187124349379369L;
+	
+	private String message;
 
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+		
 }

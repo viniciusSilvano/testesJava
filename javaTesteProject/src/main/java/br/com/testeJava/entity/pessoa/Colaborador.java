@@ -8,6 +8,7 @@ import br.com.testeJava.entity.profissoes.Profissao;
 public class Colaborador implements Pessoa {
 	private Long id;
 	private List<Profissao> profissoes;
+	private String nome;
 
 	public Colaborador() {}
 	
@@ -40,5 +41,15 @@ public class Colaborador implements Pessoa {
 	@Override
 	public String toString() {
 		return "Colaborador [id=" + id + ", profissoes=" + profissoes + "]";
+	}
+
+	@Override
+	public String getNome() {
+		return this.nome;
+	}
+
+	@Override
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 }
