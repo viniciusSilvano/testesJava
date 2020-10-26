@@ -12,22 +12,22 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "TB_ENTIDADE_DE_TESTE_1")
+//@Entity
+//@Table(name = "TB_ENTIDADE_DE_TESTE_1")
 public class EntidadeDeTeste_1 {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Entidade_Teste_1_SEQ")
-    @SequenceGenerator(sequenceName = "Entidade_Teste_1_SEQ", allocationSize = 1, name = "Entidade_Teste_1_SEQ")
+	//@Id
+	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Entidade_Teste_1_SEQ")
+	//@SequenceGenerator(sequenceName = "Entidade_Teste_1_SEQ", allocationSize = 1, name = "Entidade_Teste_1_SEQ")
 	private Long id;
 	
-	@Column
+	//@Column
 	private String nome;
 	
-	@OneToMany(cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
+	//@OneToMany(cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
 	private List<EntidadeDeTeste_1_1> entidadesFilhas_1;
 	
-	@OneToMany(cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
+	//@OneToMany(cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
 	private List<EntidadeDeTeste_1_2> entidadesFilhas_2;
 	
 	public EntidadeDeTeste_1() {}

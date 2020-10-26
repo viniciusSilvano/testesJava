@@ -12,19 +12,19 @@ import javax.persistence.Table;
 
 import br.com.testeJava.entity.IEntidade;
 
-@Entity
-@Table(name = "TB_ENTIDADE_DE_TESTE")
+//@Entity
+//@Table(name = "TB_ENTIDADE_DE_TESTE")
 public class EntidadeDeTeste implements IEntidade {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Entidade_Teste_SEQ")
-    @SequenceGenerator(sequenceName = "Entidade_Teste_SEQ", allocationSize = 1, name = "Entidade_Teste_SEQ")
+	//@Id
+	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Entidade_Teste_SEQ")
+	//@SequenceGenerator(sequenceName = "Entidade_Teste_SEQ", allocationSize = 1, name = "Entidade_Teste_SEQ")
 	private Long id;
 	
-	@Column
+	//@Column
 	private String nome;
 	
-	@OneToOne(cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
+	//@OneToOne(cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
 	private EntidadeDeTeste_1 entidadeFilha;
 
 	public EntidadeDeTeste() {}
