@@ -2,6 +2,8 @@ package br.com.testeJava.bo.pessoa;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.NotImplementedException;
+
 import br.com.testeJava.bo.BaseService;
 import br.com.testeJava.bo.elasticSearch.IElasticSearchBO;
 import br.com.testeJava.bo.elasticSearch.qualifiers.ElasticSearchBOQualifier;
@@ -24,8 +26,7 @@ public class PessoaService extends BaseService{
 
 	@Override
 	protected IDAO getDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new NotImplementedException();
 	}
 	
 	public void indexarEntidade(IEntidade entidade) {
