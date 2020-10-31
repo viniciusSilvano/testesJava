@@ -28,5 +28,19 @@ public abstract class IElasticSearchBO{
 		}
 	}
 	
+	public void inserirIndiceDocumento(IEntidade obj, final String INDEX_GENERICO, final String INDEX) {
+		RestHighLevelClient client = getClient();
+		try {
+			inserirIndiceDocumentoAbstract(obj,client,INDEX_GENERICO,INDEX);
+		}finally {
+			try {
+				client.close();
+			} catch (IOException e) {
+				System.out.println("Erro ao tentar fechar conexão com o ElasticSearch");
+			}
+		}
+	}
+	
 	protected abstract void  inserirIndiceDocumentoAbstract(IEntidade obj, RestHighLevelClient client, String INDEX);
+	protected abstract void  inserirIndiceDocumentoAbstract(IEntidade obj, RestHighLevelClient client, String INDEX_GENERICO, String INDEX);
 }

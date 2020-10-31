@@ -30,13 +30,13 @@ public class EntidadeDeTesteService extends BaseService {
 	private BaseDAO dao;
 	
 	@Override
-	protected BaseDAO getDAO() {
-		return dao;
+	protected EntidadeDeTesteDAO getDAO() {
+		return ((EntidadeDeTesteDAO)dao);
 	}
 	
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void cadastrarEntidadeDeTeste(EntidadeDeTeste entidade) {
-		((EntidadeDeTesteDAO) dao).cadastrar(entidade);
+		getDAO().cadastrar(entidade);
 	}
 	
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -54,27 +54,27 @@ public class EntidadeDeTesteService extends BaseService {
 	}
 	
 	public List<EntidadeDeTeste> listar() {
-		return ((EntidadeDeTesteDAO) dao).listar();
+		return getDAO().listar();
 	}
 	
 	public EntidadeDeTeste listarPorId(Long id) {
-		return ((EntidadeDeTesteDAO) dao).listarPorId(id);
+		return getDAO().listarPorId(id);
 	}
 	
 	public List<EntidadeDeTeste> listarComFilhas(){
-		return ((EntidadeDeTesteDAO) dao).listarComFilhas();
+		return getDAO().listarComFilhas();
 	}
 	
 	public EntidadeDeTeste listarPorIdComFilhas(Long id){
-		return ((EntidadeDeTesteDAO) dao).listarPorIdComFilhas(id);
+		return getDAO().listarPorIdComFilhas(id);
 	}
 	
 	public void cadastrarPorPaiEntidadeDeTeste1(Long idPai) {
-		((EntidadeDeTesteDAO) dao).cadastrarPorPaiEntidadeDeTeste1(idPai);
+		getDAO().cadastrarPorPaiEntidadeDeTeste1(idPai);
 	}
 	
 	private Long consultarUltimoId() {
-		return ((EntidadeDeTesteDAO) dao).consultarUltimoId();
+		return getDAO().consultarUltimoId();
 	}
 		
 	private String gerarNomeMock(Long id) {

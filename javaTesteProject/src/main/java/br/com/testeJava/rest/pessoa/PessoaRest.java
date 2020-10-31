@@ -6,24 +6,29 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import br.com.testeJava.bo.elasticSearch.IElasticSearchBO;
-import br.com.testeJava.bo.elasticSearch.qualifiers.ElasticSearchBOQualifier;
-import br.com.testeJava.entity.pessoa.Colaborador;
+import br.com.testeJava.bo.BaseService;
+import br.com.testeJava.bo.pessoa.PessoaService;
+import br.com.testeJava.bo.pessoa.qualifier.PessoaServiceQualifier;
+import br.com.testeJava.entity.IEntidade;
+import br.com.testeJava.rest.BaseRest;
 
 @Path("/pessoa")
-public class PessoaRest {
+public class PessoaRest extends BaseRest {
 	
 	@Inject
-	@ElasticSearchBOQualifier
-	private IElasticSearchBO service;
-	
-	private static final String ELASTIC_SEARCH_INDEX = "pessoa";
+	@PessoaServiceQualifier
+	BaseService service;
+
+	@Override
+	protected PessoaService getService() {
+		return ((PessoaService)service);
+	}
 	
 	@PUT
 	@Path("/indexar")
-	public Response indexarEntidade(Colaborador entidade) {		
+	public Response indexarEntidade(IEntidade entidade) {		
 		try {
-			service.inserirIndiceDocumento(entidade,ELASTIC_SEARCH_INDEX);
+			getService().indexarEntidade(entidade);
 			return Response.status(Status.CREATED).build();
 		}catch(Exception e) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e).build();

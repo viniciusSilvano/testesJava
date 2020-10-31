@@ -33,4 +33,11 @@ public class ElasticSearchBO  extends IElasticSearchBO {
 			System.out.println("Erro ao gerar indice do documento no ElasticSearch");
 		}			
 	}
+
+	@Override
+	protected void inserirIndiceDocumentoAbstract(IEntidade obj, RestHighLevelClient client, String INDEX_GENERICO,
+			String INDEX) {
+		this.inserirIndiceDocumentoAbstract(obj, client, INDEX_GENERICO);
+		this.inserirIndiceDocumentoAbstract(obj, client, INDEX);
+	}
 }
