@@ -4,6 +4,24 @@ xmlns="http://xmlns.jcp.org/xml/ns/persistence"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
 	<persistence-unit name="javaTesteProject">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<jta-data-source>java:/H2DS</jta-data-source>
+		<class>org.h2.Driver</class>
+		<properties>
+			<!-- property name="hibernate.archive.autodetection" value="class" /-->
+			<!-- Dados da conexão -->
+			<!-- property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://192.213.102.149:5432/test" />
+			<property name="javax.persistence.jdbc.user" value="test" />
+			<property name="javax.persistence.jdbc.password" value="test" /-->
+			
+			<!-- Propriedades do hibernate -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.format_sql" value="false" />
+			<property name="hibernate.hbm2ddl.auto" value="none" />
+
+		</properties>
 	</persistence-unit>
 	 <!--<persistence-unit name="testeDesempenho"  transaction-type="JTA">
         <description>This unit manages orders and customers.

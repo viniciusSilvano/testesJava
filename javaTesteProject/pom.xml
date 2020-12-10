@@ -127,6 +127,23 @@
 		    <artifactId>elasticsearch-rest-high-level-client</artifactId>
 		    <version>6.8.13</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/javax.websocket/javax.websocket-api -->
+		<dependency>
+		    <groupId>javax.websocket</groupId>
+		    <artifactId>javax.websocket-api</artifactId>
+		    <version>1.1</version>
+		    <scope>provided</scope>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+		<dependency>
+		    <groupId>com.h2database</groupId>
+		    <artifactId>h2</artifactId>
+		    <version>1.4.200</version>
+		</dependency>
+		
+		
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
