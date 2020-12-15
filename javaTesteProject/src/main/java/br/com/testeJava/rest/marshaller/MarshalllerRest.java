@@ -13,7 +13,7 @@ import br.com.testeJava.entity.pessoa.Colaborador;
 import br.com.testeJava.entity.profissoes.Profissao;
 import br.com.testeJava.entity.profissoes.Programador;
 
-@Path("marshallingTest")
+@Path("/marshallingTest")
 public class MarshalllerRest {
 	
 	@Inject

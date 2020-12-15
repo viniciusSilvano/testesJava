@@ -27,14 +27,14 @@ public class LivroRest extends BaseRest {
 	} 
 	
 	@GET
-	@Path(value = "")
+	@Path(value = "/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getLivro() {
 		return Response.status(Status.OK).entity(parseListToJsonString(((LivroService)getService()).consultarLivros())).build();
 	}
 	
 	@GET
-	@Path("{id}")
+	@Path("/{id}")
 	public void getLivroPorId(@PathParam("id") Long id) {
 		System.out.println("entrou no get de livro por id");
 		//return Response.status(Status.FOUND).entity(livroService.consultarLivroPorId(id));

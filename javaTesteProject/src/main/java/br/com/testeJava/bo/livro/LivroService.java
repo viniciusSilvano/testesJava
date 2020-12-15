@@ -9,12 +9,15 @@ import java.util.Optional;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.NotImplementedException;
+
 import br.com.testeJava.bo.BaseService;
 import br.com.testeJava.bo.infinispan.cache.CacheLivro;
 import br.com.testeJava.bo.infinispan.cache.CacheLivros;
 import br.com.testeJava.bo.livro.qualifier.LivroServiceQualifier;
-import br.com.testeJava.dao.testeDesempenho.IDAO;
+import br.com.testeJava.dao.IDAO;
 import br.com.testeJava.dto.LivroDto;
+import br.com.testeJava.entity.IEntidade;
 import br.com.testeJava.entity.Livro;
 
 @Stateless
@@ -77,5 +80,10 @@ public class LivroService extends BaseService {
 		} else {
 			return livroDtoOptional.get();
 		}
+	}
+
+	@Override
+	public void inserir(IEntidade entidade) throws Exception {
+		throw new NotImplementedException();
 	}
 }

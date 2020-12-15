@@ -16,11 +16,11 @@ import br.com.testeJava.entity.profissoes.Profissao;
 
 @Entity
 @PersistenceUnit(name = "javaTesteProject")
-@Table(name = "TB_PESSOA")
+@Table(name = "TB_COLABORADOR")
 public class Colaborador implements Pessoa {
 	@Id
 	@GeneratedValue
-	@Column(name = "ID_PESSOA")
+	@Column(name = "ID_COLABORADOR")
 	private Long id;
 	
 	@Transient
@@ -28,7 +28,7 @@ public class Colaborador implements Pessoa {
 	
 	@NotNull
 	@Size(min = 1, max = 255)
-	@Column(name = "NOME_PESSOA")
+	@Column(name = "NOME_COLABORADOR")
 	private String nome;
 
 	public Colaborador() {}

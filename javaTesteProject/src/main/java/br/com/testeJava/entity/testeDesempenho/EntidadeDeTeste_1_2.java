@@ -1,13 +1,5 @@
 package br.com.testeJava.entity.testeDesempenho;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-
 //@Entity
 //@Table(name = "TB_ENTIDADE_DE_TESTE_1_2")
 public class EntidadeDeTeste_1_2 {

@@ -9,30 +9,28 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import br.com.testeJava.bo.BaseService;
-import br.com.testeJava.bo.pessoa.PessoaService;
-import br.com.testeJava.bo.pessoa.qualifier.PessoaServiceQualifier;
-import br.com.testeJava.entity.IEntidade;
-import br.com.testeJava.entity.pessoa.Pessoa;
+import br.com.testeJava.bo.pessoa.qualifier.ColaboradorServiceQualifier;
+import br.com.testeJava.entity.pessoa.Colaborador;
 import br.com.testeJava.rest.BaseRest;
 
-@Path("/pessoa")
-public class PessoaRest extends BaseRest {
+@Path("/colaborador")
+public class ColaboradorRest extends BaseRest {
 	
 	@Inject
-	@PessoaServiceQualifier
+	@ColaboradorServiceQualifier
 	BaseService service;
 
 	@Override
-	protected PessoaService getService() {
-		return ((PessoaService)service);
+	protected BaseService getService() {
+		return service;
 	}
 	
 	@PUT
 	@Path("/indexar")
 	@Consumes(value = {MediaType.APPLICATION_JSON})
-	public Response indexarEntidade(Pessoa entidade) {		
+	public Response indexarEntidade(Colaborador entidade) {		
 		try {
-			getService().indexarEntidade(entidade);
+			getService().inserir(entidade);
 			return Response.status(Status.CREATED).build();
 		}catch(Exception e) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e).build();

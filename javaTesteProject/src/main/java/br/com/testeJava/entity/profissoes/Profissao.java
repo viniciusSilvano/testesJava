@@ -14,8 +14,9 @@ public abstract class Profissao {
 		this.idade = idade;
 	}
 
-	public String nome;
-	public int idade;
+	private String nome;
+	private int idade;
+	
 	
 	public String getNome() {
 		return nome;
