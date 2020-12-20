@@ -8,11 +8,11 @@ public class WebSocketProgressDto implements IDto {
 	 * 
 	 */
 	private static final long serialVersionUID = 2666375553852667416L;
-	private WebSocketSessionManagerKey key;
+	private String key;
 	private Integer progress;
 
 	public WebSocketProgressDto(WebSocketSessionManagerKey key, Integer progress) {
-		this.key = key;
+		this.key = key.name();
 		this.progress = progress;
 	}
 

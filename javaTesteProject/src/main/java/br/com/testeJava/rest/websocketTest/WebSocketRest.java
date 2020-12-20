@@ -29,9 +29,8 @@ public class WebSocketRest extends BaseRest {
 	}
 	
 	@OnMessage
-	public String onMessage(String message) {
+	public void onMessage(String message) {
 		getService().iniciarProcessamento();
-		return "teste websocket";
 	}
 	
 	@OnOpen

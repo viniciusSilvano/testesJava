@@ -2,6 +2,7 @@ package br.com.testeJava.bo.websocket;
 
 import java.io.IOException;
 
+import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -26,9 +27,10 @@ public class WebSocketService extends BaseService {
 		throw new NotImplementedException();
 	}
 
+	@Asynchronous
 	public void iniciarProcessamento() {
 		 
-		for(int status = 0; status < 100; status++) {
+		for(int status = 0; status <= 100; status++) {
 			if(status % 2 == 0) {
 				try {
 					this.iniciarContagem();

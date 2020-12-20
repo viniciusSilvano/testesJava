@@ -6,12 +6,21 @@ import java.util.Objects;
 
 import org.json.JSONObject;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonUtils {
+	
+	
+	private static ObjectMapper getObjectMapper() {
+		ObjectMapper objectMapper = new ObjectMapper()
+				.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
+		return objectMapper;
+	}
 	
 	
 	public static JSONObject getNullableJsonObject(JSONObject target, String key) {
@@ -25,22 +34,19 @@ public class JsonUtils {
 	}
 	
 	public static String parseObjectToStringJSON(Object obj) throws JsonProcessingException {
-		ObjectMapper objectMapper = new ObjectMapper();
-		String json = objectMapper.writeValueAsString(obj);
+		String json = getObjectMapper().writeValueAsString(obj);
 		System.out.println(json);
 		return json;
 	}
 	
 	public static Object parseStringJSONToObject(String json) throws JsonParseException, JsonMappingException, IOException {
-		ObjectMapper objectMapper = new ObjectMapper();
-		return objectMapper.readValue(json, Object.class);
+		return getObjectMapper().readValue(json, Object.class);
 	}
 	
 	
 	public static String parseListToJsonString(List<?> lista) {
-		ObjectMapper mapper = new ObjectMapper();
 		try {
-			return mapper.writeValueAsString(lista);
+			return getObjectMapper().writeValueAsString(lista);
 		} catch (JsonProcessingException e) {
 			throw new RuntimeException("Error to parse list to json string");
 		}

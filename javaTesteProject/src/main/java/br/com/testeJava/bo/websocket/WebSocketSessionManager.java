@@ -5,13 +5,13 @@ import java.util.Map;
 
 import javax.ejb.Schedule;
 import javax.ejb.Stateful;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.websocket.Session;
 
 import br.com.testeJava.entity.enuns.websocket.WebSocketSessionManagerKey;
 
 @Stateful
-@SessionScoped
+@ApplicationScoped
 public class WebSocketSessionManager {
 	private Map<WebSocketSessionManagerKey,Session> sessions = new HashMap<WebSocketSessionManagerKey, Session>();
 	
