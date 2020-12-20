@@ -5,12 +5,9 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 
-import org.apache.commons.lang3.NotImplementedException;
-
 import br.com.testeJava.bo.BaseService;
 import br.com.testeJava.bo.profissoes.qualifier.ProfissaoServiceQualifier;
 import br.com.testeJava.dao.IDAO;
-import br.com.testeJava.entity.IEntidade;
 import br.com.testeJava.entity.profissoes.Diarista;
 import br.com.testeJava.entity.profissoes.Jardineiro;
 import br.com.testeJava.entity.profissoes.Profissao;
@@ -41,8 +38,4 @@ public class ProfissaoService extends BaseService {
 		
 	}
 
-	@Override
-	public void inserir(IEntidade entidade) throws Exception {
-		throw new NotImplementedException();		
-	}
 }

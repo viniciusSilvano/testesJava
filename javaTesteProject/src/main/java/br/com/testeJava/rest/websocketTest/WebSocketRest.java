@@ -1,5 +1,6 @@
 package br.com.testeJava.rest.websocketTest;
 
+import javax.inject.Inject;
 import javax.websocket.CloseReason;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
@@ -8,17 +9,35 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint("/javaTestProjectWebSocket")
-public class WebSocketRest {
+import br.com.testeJava.bo.websocket.WebSocketService;
+import br.com.testeJava.bo.websocket.WebSocketSessionManager;
+import br.com.testeJava.entity.enuns.websocket.WebSocketSessionManagerKey;
+import br.com.testeJava.rest.BaseRest;
 
+@ServerEndpoint("/javaTestProjectWebSocket")
+public class WebSocketRest extends BaseRest {
+
+	@Inject
+	private WebSocketSessionManager webSocketSessionManager;
+	
+	@Inject
+	private WebSocketService service;;
+	
+	@Override
+	protected WebSocketService getService() {
+		return service;
+	}
+	
 	@OnMessage
 	public String onMessage(String message) {
-		 return "teste websocket";
+		getService().iniciarProcessamento();
+		return "teste websocket";
 	}
 	
 	@OnOpen
 	public void abrir(Session s) {
 	     System.out.println("WEB SOCKET ABERTO ");
+	     webSocketSessionManager.addSession(WebSocketSessionManagerKey.JAVA_TEST_PROJECT_WEBSOCKET, s);
 	}
 
 	@OnClose

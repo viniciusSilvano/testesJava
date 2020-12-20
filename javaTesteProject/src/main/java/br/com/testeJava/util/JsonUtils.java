@@ -1,6 +1,7 @@
 package br.com.testeJava.util;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 import org.json.JSONObject;
@@ -33,5 +34,15 @@ public class JsonUtils {
 	public static Object parseStringJSONToObject(String json) throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		return objectMapper.readValue(json, Object.class);
+	}
+	
+	
+	public static String parseListToJsonString(List<?> lista) {
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.writeValueAsString(lista);
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException("Error to parse list to json string");
+		}
 	}
 }

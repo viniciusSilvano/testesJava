@@ -28,11 +28,11 @@ public class ColaboradorService extends BaseService{
 	
 	@Inject
 	@ColaboradorDAOQualifier
-	private IDAO ColaboradorDAOQualifier;
+	private IDAO dao;
 
 	@Override
 	protected IDAO getDAO() {
-		return ColaboradorDAOQualifier;
+		return dao;
 	}
 	
 	
@@ -40,11 +40,10 @@ public class ColaboradorService extends BaseService{
 				
 	}
 
-	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void inserir(IEntidade entidade) throws IOException {
+	public void saveOrUpdate(IEntidade entidade) throws IOException {
 		try {
-			getDAO().incluir(entidade);
+			getDAO().saveOrUpdate(entidade);
 			elasticService.inserirIndiceDocumento(entidade,ELASTIC_SEARCH_INDEX_GENERICO,ELASTIC_SEARCH_INDEX_COLABORADOR);
 		} catch (IOException e) {
 			throw e;

@@ -82,8 +82,4 @@ public class LivroService extends BaseService {
 		}
 	}
 
-	@Override
-	public void inserir(IEntidade entidade) throws Exception {
-		throw new NotImplementedException();
-	}
 }

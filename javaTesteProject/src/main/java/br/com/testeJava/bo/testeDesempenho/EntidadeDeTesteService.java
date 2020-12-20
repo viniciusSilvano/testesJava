@@ -10,14 +10,11 @@ import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.inject.Inject;
 
-import org.apache.commons.lang3.NotImplementedException;
-
 import br.com.testeJava.bo.BaseService;
 import br.com.testeJava.bo.testeDesempenho.qualifiers.EntidadeDeTesteServiceQualifier;
 import br.com.testeJava.dao.testeDesempenho.BaseDAO;
 import br.com.testeJava.dao.testeDesempenho.EntidadeDeTesteDAO;
 import br.com.testeJava.dao.testeDesempenho.qualifiers.EntidadeDeTesteDAOQualifier;
-import br.com.testeJava.entity.IEntidade;
 import br.com.testeJava.entity.testeDesempenho.EntidadeDeTeste;
 import br.com.testeJava.entity.testeDesempenho.EntidadeDeTeste_1;
 import br.com.testeJava.entity.testeDesempenho.EntidadeDeTeste_1_1;
@@ -84,8 +81,4 @@ public class EntidadeDeTesteService extends BaseService {
 		return String.format("EntidadeDeTeste_N_%d", id);
 	}
 
-	@Override
-	public void inserir(IEntidade entidade) throws Exception {
-		throw new NotImplementedException();
-	}
 }
