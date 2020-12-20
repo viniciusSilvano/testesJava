@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Table;
@@ -19,7 +20,7 @@ import br.com.testeJava.entity.profissoes.Profissao;
 @Table(name = "TB_COLABORADOR")
 public class Colaborador implements Pessoa {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_COLABORADOR")
 	private Long id;
 	

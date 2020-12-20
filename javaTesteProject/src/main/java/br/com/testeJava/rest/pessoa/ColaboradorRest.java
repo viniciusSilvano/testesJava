@@ -12,6 +12,7 @@ import br.com.testeJava.bo.BaseService;
 import br.com.testeJava.bo.pessoa.ColaboradorService;
 import br.com.testeJava.bo.pessoa.qualifier.ColaboradorServiceQualifier;
 import br.com.testeJava.entity.IEntidade;
+import br.com.testeJava.entity.pessoa.Colaborador;
 import br.com.testeJava.rest.BaseRest;
 
 @Path("/colaborador")
@@ -29,7 +30,7 @@ public class ColaboradorRest extends BaseRest {
 	@POST
 	@Path("/indexar")
 	@Consumes(value = {MediaType.APPLICATION_JSON})
-	public Response saveOrUpdate(IEntidade entidade) throws Exception {
+	public Response saveOrUpdate(Colaborador entidade) throws Exception {
 		try {
 			getService().saveOrUpdate(entidade);
 			return Response.status(Status.CREATED).build();
