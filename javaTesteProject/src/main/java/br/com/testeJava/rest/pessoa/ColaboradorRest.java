@@ -2,6 +2,7 @@ package br.com.testeJava.rest.pessoa;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
@@ -38,4 +39,19 @@ public class ColaboradorRest extends BaseRest {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e).build();
 		}	
 	}
+	
+	@OPTIONS
+	@Path("/indexar")
+	public Response saveOrUpdateOptions() throws Exception {
+		try {
+			return Response.status(Status.ACCEPTED)
+					.header( "Access-Control-Allow-Origin", "http://localhost:4200")
+					.header("Access-Control-Allow-Credentials", "true")
+					.header("Access-Control-Allow-Headers","origin, content-type, accept, authorization")
+					.header("Access-Control-Allow-Methods","GET, POST, PUT, DELETE, OPTIONS, HEAD").build();
+		}catch(Exception e) {
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e).build();
+		}	
+	}
+	
 }
