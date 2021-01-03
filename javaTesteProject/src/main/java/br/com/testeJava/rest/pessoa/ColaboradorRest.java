@@ -2,9 +2,11 @@ package br.com.testeJava.rest.pessoa;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -12,7 +14,6 @@ import javax.ws.rs.core.Response.Status;
 import br.com.testeJava.bo.BaseService;
 import br.com.testeJava.bo.pessoa.ColaboradorService;
 import br.com.testeJava.bo.pessoa.qualifier.ColaboradorServiceQualifier;
-import br.com.testeJava.entity.IEntidade;
 import br.com.testeJava.entity.pessoa.Colaborador;
 import br.com.testeJava.rest.BaseRest;
 
@@ -38,6 +39,16 @@ public class ColaboradorRest extends BaseRest {
 		}catch(Exception e) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e).build();
 		}	
+	}
+	
+	@GET
+	@Path("/{nome}")
+	public Response getColaboradorByName(@PathParam("nome") String nome) {
+		try {
+			return Response.status(Status.ACCEPTED).entity(getService().searchByName(nome)).build();
+		}catch(Exception e) {
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e).build();
+		}
 	}
 	
 	@OPTIONS

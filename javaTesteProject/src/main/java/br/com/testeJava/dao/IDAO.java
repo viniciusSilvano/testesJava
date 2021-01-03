@@ -1,7 +1,10 @@
 package br.com.testeJava.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
+import org.hibernate.MultiIdentifierLoadAccess;
 import org.hibernate.Session;
 
 import br.com.testeJava.entity.IEntidade;
@@ -22,5 +25,11 @@ public interface IDAO {
 		Session session = this.getSession();
 		session.saveOrUpdate(entidade);
 	};
+	
+	public default <T> List<T>  ListByIds(List<Long> ids, Class<T> target) {
+		MultiIdentifierLoadAccess<T> multiLoadAccess = getSession().byMultipleIds(target);
+		List<T> entitys = multiLoadAccess.multiLoad(ids);
+		return entitys;
+	}
 	
 }

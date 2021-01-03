@@ -6,9 +6,11 @@ import javax.ejb.Stateless;
 
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 
 import br.com.testeJava.bo.elasticSearch.qualifiers.ElasticSearchBOQualifier;
 import br.com.testeJava.entity.IEntidade;
@@ -31,5 +33,12 @@ public class ElasticSearchBO  extends IElasticSearchBO {
 			String INDEX) throws IOException {
 		this.inserirIndiceDocumentoAbstract(obj, client, INDEX_GENERICO);
 		this.inserirIndiceDocumentoAbstract(obj, client, INDEX);
+	}
+
+	@Override
+	protected SearchRequest executeSearchAbstract(String INDEX,SearchSourceBuilder searchSourceBuilder) {
+		SearchRequest searchRequest = new SearchRequest(INDEX); 
+		searchRequest.source(searchSourceBuilder);
+		return searchRequest;
 	}
 }
