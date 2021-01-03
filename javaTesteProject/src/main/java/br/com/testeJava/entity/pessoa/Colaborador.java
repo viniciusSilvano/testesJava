@@ -13,15 +13,11 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
 import br.com.testeJava.entity.profissoes.Profissao;
 
 @Entity
 @PersistenceUnit(name = "javaTesteProject")
 @Table(name = "TB_COLABORADOR")
-@JsonInclude(value = Include.NON_NULL)
 public class Colaborador implements Pessoa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

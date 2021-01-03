@@ -3,6 +3,7 @@ package br.com.testeJava.bo.pessoa;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -21,6 +22,7 @@ import br.com.testeJava.bo.elasticSearch.qualifiers.ElasticSearchBOQualifier;
 import br.com.testeJava.bo.pessoa.qualifier.ColaboradorServiceQualifier;
 import br.com.testeJava.dao.IDAO;
 import br.com.testeJava.dao.pessoa.qualifier.ColaboradorDAOQualifier;
+import br.com.testeJava.dto.ColaboradorDTO;
 import br.com.testeJava.entity.IEntidade;
 import br.com.testeJava.entity.pessoa.Colaborador;
 
@@ -49,7 +51,7 @@ public class ColaboradorService extends BaseService{
 				
 	}
 	
-	public List<Colaborador> searchByName(String nome) {
+	public List<ColaboradorDTO> searchByName(String nome) {
 		SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
 		MatchQueryBuilder matchQueryBuilder = new MatchQueryBuilder("nome", nome); 
 		initSearchByNameRules(sourceBuilder, matchQueryBuilder);
@@ -61,7 +63,7 @@ public class ColaboradorService extends BaseService{
 		}
 		
 		List<Colaborador> colaboradoresResult = dao.ListByIds(idsColaboradores, Colaborador.class);
-		return colaboradoresResult;		
+		return colaboradoresResult.stream().map(c -> new ColaboradorDTO(c.getId(),c.getNome())).collect(Collectors.toList());		
 	}
 
 
