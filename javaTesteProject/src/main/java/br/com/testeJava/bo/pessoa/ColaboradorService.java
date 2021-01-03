@@ -45,12 +45,7 @@ public class ColaboradorService extends BaseService{
 	protected IDAO getDAO() {
 		return dao;
 	}
-	
-	
-	public void indexarEntidade(Colaborador entidade) throws IOException {
-				
-	}
-	
+		
 	public List<ColaboradorDTO> searchByName(String nome) {
 		SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
 		MatchQueryBuilder matchQueryBuilder = new MatchQueryBuilder("nome", nome); 
