@@ -17,6 +17,7 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
 import br.com.testeJava.bo.BaseService;
+import br.com.testeJava.bo.builder.ColaboradorDTOBuilder;
 import br.com.testeJava.bo.elasticSearch.IElasticSearchBO;
 import br.com.testeJava.bo.elasticSearch.qualifiers.ElasticSearchBOQualifier;
 import br.com.testeJava.bo.pessoa.qualifier.ColaboradorServiceQualifier;
@@ -58,8 +59,14 @@ public class ColaboradorService extends BaseService{
 		}
 		
 		List<Colaborador> colaboradoresResult = dao.ListByIds(idsColaboradores, Colaborador.class);
-		return colaboradoresResult.stream().map(c -> new ColaboradorDTO(c.getId(),c.getNome())).collect(Collectors.toList());		
+		return colaboradoresResult.stream().map(
+				c -> ColaboradorDTOBuilder.getInstance().id(c.getId()).nome(c.getNome()).build()).collect(Collectors.toList());		
 	}
+	
+	public List<ColaboradorDTO> listAll(){
+		return getDAO().listAll(Colaborador.class, false).stream()
+				.map(c -> ColaboradorDTOBuilder.getInstance().id(c.getId()).nome(c.getNome()).build()).collect(Collectors.toList());
+	} 
 
 
 	private void initSearchByNameRules(SearchSourceBuilder sourceBuilder, MatchQueryBuilder matchQueryBuilder) {

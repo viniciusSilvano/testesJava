@@ -14,6 +14,8 @@ public class ColaboradorDTO implements Serializable {
 	private Long id;
 	private String nome;
 	
+	public ColaboradorDTO() {}
+	
 	public ColaboradorDTO(Long id, String nome) {
 		super();
 		this.id = id;

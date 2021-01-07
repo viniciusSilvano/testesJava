@@ -17,8 +17,8 @@ public interface IDAO {
 	} 
 	
 	public default void  save(IEntidade entidade) {
-		EntityManager entityManager = this.getEntityManager();
-		entityManager.persist(entidade);
+		Session session = this.getSession();
+		session.save(entidade);
 	};
 	
 	public default void saveOrUpdate(IEntidade entidade) {
@@ -32,4 +32,8 @@ public interface IDAO {
 		return entitys;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public default <T> List<T> listAll(Class<T> target, boolean isCacheable){
+		return this.getSession().createQuery(String.format(" SELECT * FROM %s ", target.getSimpleName())).setCacheable(isCacheable).list();
+	}
 }

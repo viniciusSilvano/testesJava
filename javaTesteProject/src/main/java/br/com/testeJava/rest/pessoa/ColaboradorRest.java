@@ -67,4 +67,13 @@ public class ColaboradorRest extends BaseRest {
 		}	
 	}
 	
+	@GET
+	public Response listAll() {
+		try {
+			return Response.status(Status.ACCEPTED).entity(getService().listAll()).build();
+		}catch(Exception e) {
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e).build();
+		}
+	}
+	
 }
