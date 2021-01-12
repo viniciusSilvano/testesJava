@@ -57,13 +57,17 @@ public class ZipUtils {
         String source = new File(SOURCE_FOLDER).getName();
         Long inicioCompressao = System.currentTimeMillis();
         return Response.ok((StreamingOutput) output -> {
-        	 try( ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(output))) {
+        	ZipOutputStream zos = null;
+        	 try{
+        		 zos = new ZipOutputStream(new BufferedOutputStream(output));
         		 System.out.println("Iniciando compressão");
         		 this.generateFileList(new File(SOURCE_FOLDER));
                  initZip(OUTPUT_ZIP_FILE_NAME, buffer, source, zos, true);
                  System.out.println("Compressão finalizada em: " + (System.currentTimeMillis() - inicioCompressao));
              } catch (IOException ex) {
                  ex.printStackTrace();
+             }finally {
+            	 zos.close();
              }
         },MediaType.APPLICATION_OCTET_STREAM_TYPE)
         .header("Content-Disposition", " attachment; filename=" + OUTPUT_ZIP_FILE_NAME)
