@@ -1,5 +1,7 @@
 package br.com.testeJava.util;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -55,7 +57,7 @@ public class ZipUtils {
         String source = new File(SOURCE_FOLDER).getName();
         Long inicioCompressao = System.currentTimeMillis();
         return Response.ok((StreamingOutput) output -> {
-        	 try( ZipOutputStream zos = new ZipOutputStream(output)) {
+        	 try( ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(output))) {
         		 System.out.println("Iniciando compressão");
         		 this.generateFileList(new File(SOURCE_FOLDER));
                  initZip(OUTPUT_ZIP_FILE_NAME, buffer, source, zos, true);
@@ -73,14 +75,14 @@ public class ZipUtils {
 		zos.setLevel(Deflater.NO_COMPRESSION);
 
 		System.out.println("Output to Zip : " + zipFile);
-		FileInputStream in = null;
+		BufferedInputStream in = null;
 
 		for (String file: this.fileList) {
 		    System.out.println("File Added : " + file);
 		    ZipEntry ze = new ZipEntry(source + File.separator + file);
 		    zos.putNextEntry(ze);
 		    try {
-		        in = new FileInputStream(SOURCE_FOLDER + File.separator + file);
+		        in = new BufferedInputStream(new FileInputStream(SOURCE_FOLDER + File.separator + file));
 		        int len;
 		        while ((len = in .read(buffer)) > 0) {
 		            zos.write(buffer, 0, len);
