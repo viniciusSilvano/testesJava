@@ -66,7 +66,9 @@ public class ZipUtils {
                  ex.printStackTrace();
              }
         },MediaType.APPLICATION_OCTET_STREAM_TYPE)
-        .header("Content-Disposition", " attachment; filename=" + OUTPUT_ZIP_FILE_NAME).build();
+        .header("Content-Disposition", " attachment; filename=" + OUTPUT_ZIP_FILE_NAME)
+        .header("Transfer-Encoding", "chunked")
+        .build();
        
     }
 
