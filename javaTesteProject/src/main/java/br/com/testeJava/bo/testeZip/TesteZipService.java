@@ -4,6 +4,8 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.lang3.NotImplementedException;
+
 import br.com.testeJava.bo.BaseService;
 import br.com.testeJava.dao.IDAO;
 import br.com.testeJava.util.ZipUtils;
@@ -16,8 +18,7 @@ public class TesteZipService extends BaseService {
 	
 	@Override
 	protected IDAO getDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new NotImplementedException();
 	}
 	
 	public Response executarTeste() {
