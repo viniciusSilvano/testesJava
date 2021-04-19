@@ -15,7 +15,7 @@ import br.com.testeJava.bo.observables.zip.RecuperadorArquivoObservable;
 @Stateless
 public class ZipUtils {
     private static final String OUTPUT_ZIP_FILE_NAME = "Folder.zip";
-    private static final String SOURCE_FOLDER = "C:\\Desenv2"; // SourceFolder path
+    private static final String SOURCE_FOLDER = "C:/Users/vinic/Downloads/PASTA"; // SourceFolder path
     
     public Response zipItLive() {
         byte[] buffer = new byte[1024];
@@ -26,7 +26,7 @@ public class ZipUtils {
         	 try{
         		 zos = new ZipOutputStream(new BufferedOutputStream(output));
         		 System.out.println("Iniciando compressão");
-        		 zos.setLevel(Deflater.BEST_COMPRESSION);
+        		 zos.setLevel(Deflater.NO_COMPRESSION);
         		 System.out.println("Output to Zip : " + OUTPUT_ZIP_FILE_NAME);
         		 new RecuperadorArquivoObservable(source,SOURCE_FOLDER,zos,true,buffer).generateFileList(new File(SOURCE_FOLDER));
         		 

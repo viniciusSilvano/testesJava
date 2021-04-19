@@ -43,7 +43,6 @@ public class WebSocketService extends BaseService {
 				}
 			}
 		}
-		
 	}
 
 	private void iniciarContagem() {
