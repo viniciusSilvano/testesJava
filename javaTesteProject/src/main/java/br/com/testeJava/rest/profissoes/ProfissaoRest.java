@@ -11,7 +11,6 @@ import br.com.testeJava.bo.BaseService;
 import br.com.testeJava.bo.profissoes.ProfissaoService;
 import br.com.testeJava.bo.profissoes.qualifier.ProfissaoServiceQualifier;
 import br.com.testeJava.rest.BaseRest;
-import br.com.testeJava.util.JsonUtils;
 
 @Path("/profissoes")
 public class ProfissaoRest extends BaseRest {
@@ -30,7 +29,7 @@ public class ProfissaoRest extends BaseRest {
 	@Path(value = "")
 	@Produces(value = MediaType.APPLICATION_JSON)
 	public Response listarProfissoes(){
-		return Response.ok().entity(JsonUtils.parseListToJsonString(((ProfissaoService)getService()).recuperarProfissoes())).build();
+		return Response.ok().entity(parseListToJsonString(((ProfissaoService)getService()).recuperarProfissoes())).build();
 	}
 
 

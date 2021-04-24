@@ -34,6 +34,6 @@ public interface IDAO {
 	
 	@SuppressWarnings("unchecked")
 	public default <T> List<T> listAll(Class<T> target, boolean isCacheable){
-		return this.getSession().createQuery(String.format(" SELECT * FROM %s ", target.getSimpleName())).setCacheable(isCacheable).list();
+		return this.getSession().createQuery(String.format(" SELECT alvo FROM %s alvo ", target.getSimpleName())).setCacheable(isCacheable).list();
 	}
 }

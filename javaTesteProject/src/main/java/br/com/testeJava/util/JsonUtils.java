@@ -13,17 +13,29 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class JsonUtils {
+import br.com.testeJava.interfaces.IJsonMarshaller;
+
+public class JsonUtils implements IJsonMarshaller{
 	
+	private static JsonUtils instance = new JsonUtils();
+	private JsonUtils() {}
 	
-	private static ObjectMapper getObjectMapper() {
+	public static JsonUtils getInstance() {
+		if(Objects.nonNull(instance)) {
+			return instance;
+		}
+		return new JsonUtils();
+	}
+	
+	@Override
+	public ObjectMapper getObjectMapper() {
 		ObjectMapper objectMapper = new ObjectMapper()
 				.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
 		return objectMapper;
 	}
 	
-	
-	public static JSONObject getNullableJsonObject(JSONObject target, String key) {
+	@Override
+	public JSONObject getNullableJsonObject(JSONObject target, String key) {
 		if(Objects.nonNull(target) && !target.isEmpty()) {
 			JSONObject targetedObject = target.getJSONObject(key);
 			if(!targetedObject.isNull(key)) {
@@ -33,18 +45,20 @@ public class JsonUtils {
 		return null;
 	}
 	
-	public static String parseObjectToStringJSON(Object obj) throws JsonProcessingException {
+	@Override
+	public String parseObjectToStringJSON(Object obj) throws JsonProcessingException {
 		String json = getObjectMapper().writeValueAsString(obj);
 		System.out.println(json);
 		return json;
 	}
 	
-	public static Object parseStringJSONToObject(String json) throws JsonParseException, JsonMappingException, IOException {
+	@Override
+	public Object parseStringJSONToObject(String json) throws JsonParseException, JsonMappingException, IOException {
 		return getObjectMapper().readValue(json, Object.class);
 	}
 	
-	
-	public static String parseListToJsonString(List<?> lista) {
+	@Override
+	public String parseListToJsonString(List<?> lista) {
 		try {
 			return getObjectMapper().writeValueAsString(lista);
 		} catch (JsonProcessingException e) {

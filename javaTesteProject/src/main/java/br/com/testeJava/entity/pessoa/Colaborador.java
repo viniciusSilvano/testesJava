@@ -29,7 +29,7 @@ public class Colaborador implements Pessoa {
 	
 	@NotNull
 	@Size(min = 1, max = 255)
-	@Column(name = "NOME_COLABORADOR")
+	@Column(name = "NOME_COLABORADOR",unique = true)
 	private String nome;
 
 	public Colaborador() {}

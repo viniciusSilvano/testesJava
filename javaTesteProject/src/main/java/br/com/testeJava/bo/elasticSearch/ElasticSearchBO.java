@@ -23,7 +23,7 @@ public class ElasticSearchBO  extends IElasticSearchBO {
 	@Override
 	protected void inserirIndiceDocumentoAbstract(IEntidade obj, RestHighLevelClient client, final String INDEX) throws IOException {
 		IndexRequest request = new IndexRequest(INDEX, "doc", obj.getId().toString());
-		request.source(JsonUtils.parseObjectToStringJSON(obj), XContentType.JSON);
+		request.source(JsonUtils.getInstance().parseObjectToStringJSON(obj), XContentType.JSON);
 		IndexResponse indexResponse = client.index(request, RequestOptions.DEFAULT);
 		System.out.println(indexResponse);
 	}

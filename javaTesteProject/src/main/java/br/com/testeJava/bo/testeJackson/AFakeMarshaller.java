@@ -12,12 +12,12 @@ import br.com.testeJava.util.JsonUtils;
 public class AFakeMarshaller{
 	
 	public String objectToObjectStream(Object obj) throws IOException {
-		return JsonUtils.parseObjectToStringJSON(obj);
+		return JsonUtils.getInstance().parseObjectToStringJSON(obj);
 	}
 
 	public Object objectFromObjectStream(String json) throws IOException, ClassNotFoundException {
 		ObjectMapper objectMapper = new ObjectMapper();
-		return JsonUtils.parseStringJSONToObject(json);
+		return JsonUtils.getInstance().parseStringJSONToObject(json);
 	}
 
 }

@@ -35,7 +35,7 @@ public class WebSocketService extends BaseService {
 				try {
 					this.iniciarContagem();
 					webSocketSessionManager.getSession(WebSocketSessionManagerKey.JAVA_TEST_PROJECT_WEBSOCKET).getBasicRemote()
-					.sendText(JsonUtils.parseObjectToStringJSON(new WebSocketProgressDto(WebSocketSessionManagerKey.JAVA_TEST_PROJECT_WEBSOCKET, status)));
+					.sendText(JsonUtils.getInstance().parseObjectToStringJSON(new WebSocketProgressDto(WebSocketSessionManagerKey.JAVA_TEST_PROJECT_WEBSOCKET, status)));
 				} catch (JsonProcessingException e) {
 					e.printStackTrace();
 				} catch (IOException e) {

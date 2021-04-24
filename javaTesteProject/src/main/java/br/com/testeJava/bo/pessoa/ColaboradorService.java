@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.inject.Inject;
 
 import org.elasticsearch.action.search.SearchResponse;
@@ -29,6 +31,8 @@ import br.com.testeJava.entity.pessoa.Colaborador;
 
 @Stateless
 @ColaboradorServiceQualifier
+@TransactionManagement(TransactionManagementType.CONTAINER)
+@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class ColaboradorService extends BaseService{
 	
 	private static final String ELASTIC_SEARCH_INDEX_GENERICO = "pessoa";
@@ -85,5 +89,4 @@ public class ColaboradorService extends BaseService{
 			throw e;
 		}	
 	}
-
 }
