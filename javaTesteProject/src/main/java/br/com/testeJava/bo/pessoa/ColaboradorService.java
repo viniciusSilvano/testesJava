@@ -3,6 +3,7 @@ package br.com.testeJava.bo.pessoa;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import javax.ejb.Stateless;
@@ -57,13 +58,13 @@ public class ColaboradorService extends BaseService{
 		initSearchByNameRules(sourceBuilder, matchQueryBuilder);
 		SearchResponse response = elasticService.executeSearch(ELASTIC_SEARCH_INDEX_COLABORADOR, sourceBuilder);
 		
-		List<Long> idsColaboradores = new ArrayList<Long>();
-		for(SearchHit hit : response.getHits()) {
+		List<Long> idsColaboradores = new ArrayList<>();
+		for(SearchHit hit : response.getHits().getHits()) {
 			idsColaboradores.add(Long.valueOf(hit.getId()));
 		}
 		
 		List<Colaborador> colaboradoresResult = dao.ListByIds(idsColaboradores, Colaborador.class);
-		return colaboradoresResult.stream().map(
+		return colaboradoresResult.stream().filter(Objects::nonNull).map(
 				c -> ColaboradorDTOBuilder.getInstance().id(c.getId()).nome(c.getNome()).build()).collect(Collectors.toList());		
 	}
 	

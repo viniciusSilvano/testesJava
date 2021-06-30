@@ -51,49 +51,42 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.9.8</version>
 		</dependency>
-		
+
 		<!-- JUNIT 5 - mockito -->
-		
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.4.0</version>
-			<scope>test</scope>
-		</dependency>
+
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.3.1</version>
+			<version>5.7.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>2.21.0</version>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.7.2</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.junit.platform</groupId>
-			<artifactId>junit-platform-runner</artifactId>
-			<version>1.2.0</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.vintage</groupId>
-			<artifactId>junit-vintage-engine</artifactId>
-			<version>5.4.0</version>
-			<scope>test</scope>
-		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter -->
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-junit-jupiter</artifactId>
-			<version>2.23.0</version>
+			<version>3.11.2</version>
 			<scope>test</scope>
 		</dependency>
-		
+
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-inline -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-inline</artifactId>
+			<version>3.11.2</version>
+			<scope>test</scope>
+		</dependency>
+
+
+
 		<!-- FIM JUNIT 5 e mockito -->
-		
-		
+
+
 		<!-- https://mvnrepository.com/artifact/org.infinispan/infinispan-core -->
 		<dependency>
 			<groupId>org.infinispan</groupId>
@@ -113,72 +106,72 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.10</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
 		<dependency>
-		    <groupId>org.hibernate</groupId>
-		    <artifactId>hibernate-core</artifactId>
-		    <version>5.4.21.Final</version>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.4.21.Final</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api -->
 		<dependency>
-		    <groupId>org.hibernate.javax.persistence</groupId>
-		    <artifactId>hibernate-jpa-2.1-api</artifactId>
-		    <version>1.0.0.Final</version>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.1-api</artifactId>
+			<version>1.0.0.Final</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/javax.enterprise/cdi-api -->
 		<dependency>
-		    <groupId>javax.enterprise</groupId>
-		    <artifactId>cdi-api</artifactId>
-		    <version>2.0</version>
-		    <scope>provided</scope>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<version>2.0</version>
+			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api -->
 		<dependency>
-		    <groupId>javax.persistence</groupId>
-		    <artifactId>javax.persistence-api</artifactId>
-		    <version>2.2</version>
+			<groupId>javax.persistence</groupId>
+			<artifactId>javax.persistence-api</artifactId>
+			<version>2.2</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.json/json -->
 		<dependency>
-		    <groupId>org.json</groupId>
-		    <artifactId>json</artifactId>
-		    <version>20190722</version>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20190722</version>
 		</dependency>
-		
+
 		<!-- Elastic search -->
 		<dependency>
-		    <groupId>org.elasticsearch.client</groupId>
-		    <artifactId>elasticsearch-rest-high-level-client</artifactId>
-		    <version>6.8.13</version>
+			<groupId>org.elasticsearch.client</groupId>
+			<artifactId>elasticsearch-rest-high-level-client</artifactId>
+			<version>6.8.13</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/javax.websocket/javax.websocket-api -->
 		<dependency>
-		    <groupId>javax.websocket</groupId>
-		    <artifactId>javax.websocket-api</artifactId>
-		    <version>1.1</version>
-		    <scope>provided</scope>
+			<groupId>javax.websocket</groupId>
+			<artifactId>javax.websocket-api</artifactId>
+			<version>1.1</version>
+			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
 		<dependency>
-		    <groupId>com.h2database</groupId>
-		    <artifactId>h2</artifactId>
-		    <version>1.4.200</version>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.200</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
 		<dependency>
-		    <groupId>javax.validation</groupId>
-		    <artifactId>validation-api</artifactId>
-		    <version>2.0.1.Final</version>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>2.0.1.Final</version>
 		</dependency>
-		
+
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -191,4 +184,21 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.2</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.22.2</version>
+			</plugin>
+		</plugins>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
+		</testResources>
+	</build>
 </project>
