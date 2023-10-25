@@ -25,6 +25,7 @@ import br.com.testeJava.bo.elasticSearch.IElasticSearchBO;
 import br.com.testeJava.bo.elasticSearch.qualifiers.ElasticSearchBOQualifier;
 import br.com.testeJava.bo.pessoa.qualifier.ColaboradorServiceQualifier;
 import br.com.testeJava.dao.IDAO;
+import br.com.testeJava.dao.pessoa.ColaboradorDAO;
 import br.com.testeJava.dao.pessoa.qualifier.ColaboradorDAOQualifier;
 import br.com.testeJava.dto.ColaboradorDTO;
 import br.com.testeJava.entity.IEntidade;
@@ -89,5 +90,9 @@ public class ColaboradorService extends BaseService{
 		} catch (IOException e) {
 			throw e;
 		}	
+	}
+
+	public void atualizarNomePorId(int id, String nome) {
+		((ColaboradorDAO) getDAO()).atualizarNomePorId(id,nome);
 	}
 }
