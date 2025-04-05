@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.websocket.Session;
 
 import org.apache.commons.lang3.NotImplementedException;
 
@@ -34,8 +35,12 @@ public class WebSocketService extends BaseService {
 			if(status % 2 == 0) {
 				try {
 					this.iniciarContagem();
-					webSocketSessionManager.getSession(WebSocketSessionManagerKey.JAVA_TEST_PROJECT_WEBSOCKET).getBasicRemote()
-					.sendText(JsonUtils.getInstance().parseObjectToStringJSON(new WebSocketProgressDto(WebSocketSessionManagerKey.JAVA_TEST_PROJECT_WEBSOCKET, status)));
+					for(Session session : this.webSocketSessionManager.getAllSessions()) {
+						if(session.isOpen()) {
+							session.getBasicRemote()
+							.sendText(JsonUtils.getInstance().parseObjectToStringJSON(new WebSocketProgressDto(WebSocketSessionManagerKey.JAVA_TEST_PROJECT_WEBSOCKET, status)));
+						}
+					}
 				} catch (JsonProcessingException e) {
 					e.printStackTrace();
 				} catch (IOException e) {

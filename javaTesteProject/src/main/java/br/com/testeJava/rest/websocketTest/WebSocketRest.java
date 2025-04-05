@@ -36,7 +36,7 @@ public class WebSocketRest extends BaseRest {
 	@OnOpen
 	public void abrir(Session s) {
 	     System.out.println("WEB SOCKET ABERTO ");
-	     webSocketSessionManager.addSession(WebSocketSessionManagerKey.JAVA_TEST_PROJECT_WEBSOCKET, s);
+	     webSocketSessionManager.addSession(s);
 	}
 
 	@OnClose
