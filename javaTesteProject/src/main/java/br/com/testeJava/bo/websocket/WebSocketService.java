@@ -1,6 +1,7 @@
 package br.com.testeJava.bo.websocket;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
@@ -35,7 +36,9 @@ public class WebSocketService extends BaseService {
 			if(status % 2 == 0) {
 				try {
 					this.iniciarContagem();
-					for(Session session : this.webSocketSessionManager.getAllSessions()) {
+					Iterator<Session> it = this.webSocketSessionManager.getAllSessions().iterator();
+					while(it.hasNext()) {
+						Session session = it.next();
 						if(session.isOpen()) {
 							session.getBasicRemote()
 							.sendText(JsonUtils.getInstance().parseObjectToStringJSON(new WebSocketProgressDto(WebSocketSessionManagerKey.JAVA_TEST_PROJECT_WEBSOCKET, status)));

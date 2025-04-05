@@ -32,7 +32,7 @@ public class WebSocketSessionManager {
 		return sessions.get(key);
 	}
 	
-	@Schedule(minute = "*/10")
+	@Schedule(minute = "*/5")
 	private void checkAllSessions(){
 		System.out.println(" Checando sessões do WebSocket ");
 		int sessionsQuantity = sessions.values().size();
