@@ -11,7 +11,6 @@ import javax.websocket.server.ServerEndpoint;
 
 import br.com.testeJava.bo.websocket.WebSocketService;
 import br.com.testeJava.bo.websocket.WebSocketSessionManager;
-import br.com.testeJava.entity.enuns.websocket.WebSocketSessionManagerKey;
 import br.com.testeJava.rest.BaseRest;
 
 @ServerEndpoint("/javaTestProjectWebSocket")
