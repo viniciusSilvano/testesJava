@@ -8,6 +8,7 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+import javax.websocket.server.ServerEndpointConfig;
 
 import br.com.testeJava.bo.websocket.WebSocketService;
 import br.com.testeJava.bo.websocket.WebSocketSessionManager;
@@ -47,5 +48,15 @@ public class WebSocketRest extends BaseRest {
 	public void erro(Throwable t) {
 	   System.out.println("ERRO NO WEBSOCKET");
 	}
+	
+	public static class Configurator extends ServerEndpointConfig.Configurator {
+        @Override
+        public boolean checkOrigin(String originHeaderValue) {
+            System.out.println("Origin: " + originHeaderValue);
+
+            //Allow only specific origins (like Angular dev server)
+            return "http://localhost:4200".equals(originHeaderValue);
+        }
+    }
 	
 }

@@ -19,10 +19,25 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org
 			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="false" />
-			<property name="hibernate.hbm2ddl.auto" value="none" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
 
 		</properties>
 	</persistence-unit>
+	<!-- <persistence-unit name="testeMultiplosDb1"  transaction-type="JTA">
+        <description>This unit manages orders and customers.
+            It does not rely on any vendor-specific features and can
+            therefore be deployed to any persistence provider.
+        </description>
+        <jta-data-source>java:/testeMultiplosDb1DS</jta-data-source>
+        <class>br.com.testeJava.entity.testeDesempenho.EntidadeDeTeste</class>
+        <class>br.com.testeJava.entity.testeDesempenho.EntidadeDeTeste_1</class>
+        <class>br.com.testeJava.entity.testeDesempenho.EntidadeDeTeste_1_1</class>
+        <class>br.com.testeJava.entity.testeDesempenho.EntidadeDeTeste_1_2</class>
+        <properties>
+        	<property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+        </properties>
+    </persistence-unit> -->
 	 <!--<persistence-unit name="testeDesempenho"  transaction-type="JTA">
         <description>This unit manages orders and customers.
             It does not rely on any vendor-specific features and can

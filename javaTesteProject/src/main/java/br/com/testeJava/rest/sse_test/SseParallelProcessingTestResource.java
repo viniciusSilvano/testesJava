@@ -4,6 +4,7 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.sse.Sse;
 
 import br.com.testeJava.bo.sse_test.SseParallelProcessingTestService;
@@ -16,7 +17,8 @@ public class SseParallelProcessingTestResource {
 
 	
     @GET
-    public void beginProcessing(@Context Sse sse) {
+    public Response beginProcessing(@Context Sse sse) {
     	service.beginParallelProcessingTest(sse);
+    	return Response.ok().build();
     }
 }
