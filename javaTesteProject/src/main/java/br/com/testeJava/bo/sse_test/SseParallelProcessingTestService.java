@@ -2,6 +2,7 @@ package br.com.testeJava.bo.sse_test;
 
 import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.ws.rs.sse.OutboundSseEvent;
 import javax.ws.rs.sse.Sse;
 import javax.ws.rs.sse.SseBroadcaster;
@@ -9,23 +10,32 @@ import javax.ws.rs.sse.SseBroadcaster;
 @Stateless
 public class SseParallelProcessingTestService {
 	
+	@Inject
+	private ClientRegistry clientRegistry;
+	
 	@Asynchronous
 	public void beginParallelProcessingTest(Sse sse) {
 		 try {
-	        for (int i = 0; i < 10; i++) {
-	            // Create an event and send it
+	        for (int i = 0; i < 101; i++) {
 	            OutboundSseEvent.Builder eventBuilder = sse.newEventBuilder();
 	            eventBuilder.name("message")
-	                        .data(String.class, "Message Parallel Processing " + i);
+	                        .data(String.class, "" + i);
 	            OutboundSseEvent event = eventBuilder.build();
-	            SseBroadcaster sseBroadcaster = sse.newBroadcaster();
-	            sseBroadcaster.broadcast(event);
-	            //eventSink.send(event);
+	            clientRegistry.getSinks().forEach(sink -> {
+	                try {
+	                    if (sink.isClosed()) {
+	                    	clientRegistry.removeSink(sink);
+	                    } else {
+	                    	sink.send(event);
+	                    }
+	                } catch (Exception e) {
+	                    e.printStackTrace();
+	                    clientRegistry.removeSink(sink); // Remove faulty clients
+	                }
+	            });
             	Thread.sleep(1000); // Send an event every second
 	        }
-	        //eventSink.close(); // Close the connection after sending all events
 	    } catch (InterruptedException e) {
-	        //eventSink.close();
 	    }
 	}
 }

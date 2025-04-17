@@ -29,6 +29,6 @@ public class SseResource {
     		@Context EventSource eventSource,
     		@Context Sse sse,
     		@QueryParam("tempoMili") Integer tempoMili) {
-    	service.beginTest(eventSink,eventSource,sse,Optional.ofNullable(tempoMili));
+    	service.initSseConnection(eventSink,eventSource,sse,Optional.ofNullable(tempoMili));
     }
 }
