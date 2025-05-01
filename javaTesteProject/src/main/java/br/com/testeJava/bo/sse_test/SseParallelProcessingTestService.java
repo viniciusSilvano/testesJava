@@ -7,11 +7,13 @@ import javax.ws.rs.sse.OutboundSseEvent;
 import javax.ws.rs.sse.Sse;
 import javax.ws.rs.sse.SseBroadcaster;
 
+import br.com.testeJava.bo.sse_test.registers.ClientRegistryProcesses;
+
 @Stateless
 public class SseParallelProcessingTestService {
 	
 	@Inject
-	private ClientRegistry clientRegistry;
+	private ClientRegistryProcesses clientRegistry;
 	
 	@Asynchronous
 	public void beginParallelProcessingTest(Sse sse) {

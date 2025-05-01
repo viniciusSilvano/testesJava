@@ -1,22 +1,17 @@
-package br.com.testeJava.bo.sse_test;
+package br.com.testeJava.bo.sse_test.registers;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.ejb.Singleton;
 import javax.ws.rs.sse.SseEventSink;
 
+import br.com.testeJava.bo.sse_test.qualifier.ClientRegisterProcessesNotificationQualifier;
+
 @Singleton
-public class ClientRegistry {
+@ClientRegisterProcessesNotificationQualifier
+public class ClientRegistryNotification extends ClientRegistryBase {
 	private final CopyOnWriteArrayList<SseEventSink> sinks = new CopyOnWriteArrayList<>();
-
-    public void addSink(SseEventSink sink) {
-        sinks.add(sink);
-    }
-
-    public void removeSink(SseEventSink sink) {
-        sinks.remove(sink);
-    }
-
+	
     public CopyOnWriteArrayList<SseEventSink> getSinks() {
         return sinks;
     }
