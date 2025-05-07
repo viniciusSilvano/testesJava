@@ -7,7 +7,7 @@ import javax.ejb.Stateless;
 
 import br.com.testeJava.bo.BaseService;
 import br.com.testeJava.bo.profissoes.qualifier.ProfissaoServiceQualifier;
-import br.com.testeJava.dao.IDAO;
+import br.com.testeJava.dao.BaseDAO;
 import br.com.testeJava.entity.profissoes.Diarista;
 import br.com.testeJava.entity.profissoes.Jardineiro;
 import br.com.testeJava.entity.profissoes.Profissao;
@@ -26,7 +26,7 @@ public class ProfissaoService extends BaseService {
 	}
 	
 	@Override
-	protected IDAO getDAO() {
+	protected BaseDAO getDAO() {
 		return null;
 	}
 	

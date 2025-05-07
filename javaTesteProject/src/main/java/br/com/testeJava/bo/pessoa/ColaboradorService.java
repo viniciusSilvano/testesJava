@@ -24,7 +24,7 @@ import br.com.testeJava.bo.builder.ColaboradorDTOBuilder;
 import br.com.testeJava.bo.elasticSearch.IElasticSearchBO;
 import br.com.testeJava.bo.elasticSearch.qualifiers.ElasticSearchBOQualifier;
 import br.com.testeJava.bo.pessoa.qualifier.ColaboradorServiceQualifier;
-import br.com.testeJava.dao.IDAO;
+import br.com.testeJava.dao.BaseDAO;
 import br.com.testeJava.dao.pessoa.ColaboradorDAO;
 import br.com.testeJava.dao.pessoa.qualifier.ColaboradorDAOQualifier;
 import br.com.testeJava.dto.ColaboradorDTO;
@@ -35,7 +35,7 @@ import br.com.testeJava.entity.pessoa.Colaborador;
 @ColaboradorServiceQualifier
 @TransactionManagement(TransactionManagementType.CONTAINER)
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-public class ColaboradorService extends BaseService{
+public class ColaboradorService extends BaseService<Colaborador>{
 	
 	private static final String ELASTIC_SEARCH_INDEX_GENERICO = "pessoa";
 	private static final String ELASTIC_SEARCH_INDEX_COLABORADOR = "colaborador";
@@ -46,10 +46,10 @@ public class ColaboradorService extends BaseService{
 	
 	@Inject
 	@ColaboradorDAOQualifier
-	private IDAO dao;
+	private BaseDAO<Colaborador> dao;
 
 	@Override
-	protected IDAO getDAO() {
+	protected BaseDAO<Colaborador> getDAO() {
 		return dao;
 	}
 		

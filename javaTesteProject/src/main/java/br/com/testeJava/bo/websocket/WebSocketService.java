@@ -13,7 +13,7 @@ import org.apache.commons.lang3.NotImplementedException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import br.com.testeJava.bo.BaseService;
-import br.com.testeJava.dao.IDAO;
+import br.com.testeJava.dao.BaseDAO;
 import br.com.testeJava.dto.WebSocketProgressDto;
 import br.com.testeJava.entity.enuns.websocket.WebSocketSessionManagerKey;
 import br.com.testeJava.util.JsonUtils;
@@ -25,7 +25,7 @@ public class WebSocketService extends BaseService {
 	private WebSocketSessionManager webSocketSessionManager;
 
 	@Override
-	protected IDAO getDAO() {
+	protected BaseDAO getDAO() {
 		throw new NotImplementedException();
 	}
 

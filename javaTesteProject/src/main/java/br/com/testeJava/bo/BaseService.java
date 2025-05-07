@@ -1,10 +1,10 @@
 package br.com.testeJava.bo;
 
-import br.com.testeJava.dao.IDAO;
+import br.com.testeJava.dao.BaseDAO;
 import br.com.testeJava.interfaces.ITempoTestavel;
 
-public abstract class BaseService implements IService {
-	protected abstract IDAO getDAO();
+public abstract class BaseService<T> {
+	protected abstract BaseDAO<T> getDAO();
 	
 	public Long executarTesteDeTempo(ITempoTestavel metodo) {
 		Long inicio = System.currentTimeMillis();

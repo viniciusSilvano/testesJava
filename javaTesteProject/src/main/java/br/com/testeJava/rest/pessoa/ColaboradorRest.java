@@ -23,7 +23,7 @@ public class ColaboradorRest extends BaseRest {
 	
 	@Inject
 	@ColaboradorServiceQualifier
-	BaseService service;
+	BaseService<Colaborador> service;
 
 	@Override
 	protected ColaboradorService getService() {

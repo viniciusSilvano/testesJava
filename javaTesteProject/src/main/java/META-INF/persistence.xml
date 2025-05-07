@@ -20,6 +20,12 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="false" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
+			
+			<!--  second level cache -->
+			<property name="hibernate.cache.use_second_level_cache" value="true" />
+		    <property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.jcache.internal.JCacheRegionFactory" />
+		    <property name="hibernate.javax.cache.uri" value="ehcache.xml" />
+		    <property name="hibernate.javax.cache.provider" value="org.ehcache.jsr107.EhcacheCachingProvider" />
 
 		</properties>
 	</persistence-unit>

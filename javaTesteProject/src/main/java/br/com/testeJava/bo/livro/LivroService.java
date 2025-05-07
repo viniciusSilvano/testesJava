@@ -9,15 +9,12 @@ import java.util.Optional;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import org.apache.commons.lang3.NotImplementedException;
-
 import br.com.testeJava.bo.BaseService;
 import br.com.testeJava.bo.infinispan.cache.CacheLivro;
 import br.com.testeJava.bo.infinispan.cache.CacheLivros;
 import br.com.testeJava.bo.livro.qualifier.LivroServiceQualifier;
-import br.com.testeJava.dao.IDAO;
+import br.com.testeJava.dao.BaseDAO;
 import br.com.testeJava.dto.LivroDto;
-import br.com.testeJava.entity.IEntidade;
 import br.com.testeJava.entity.Livro;
 
 @Stateless
@@ -37,7 +34,7 @@ public class LivroService extends BaseService {
 			new Livro(14L, "teste14"), new Livro(15L, "teste15"), new Livro(16L, "teste16")));
 
 	@Override
-	protected IDAO getDAO() {
+	protected BaseDAO getDAO() {
 		return null;
 	}
 	
