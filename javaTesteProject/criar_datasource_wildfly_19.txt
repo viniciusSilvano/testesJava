@@ -1,0 +1,10 @@
+
+rodar o comando no cmd: 
+
+%WILDFLY_HOME%/bin/jboss-cli.bat --connect
+
+em seguida o comando abaixo:
+/subsystem=datasources/data-source=MyH2DS:add(jndi-name=java:/jdbc/MyH2DS,connection-url="jdbc:h2:mem:mydb;DB_CLOSE_DELAY=-1",driver-name=h2,user-name=sa,password=sa,min-pool-size=5,max-pool-size=20,pool-prefill=true,enabled=true)
+
+caso precise remover o datasource o comando abaixo:
+/subsystem=datasources/data-source=MyH2DS:remove

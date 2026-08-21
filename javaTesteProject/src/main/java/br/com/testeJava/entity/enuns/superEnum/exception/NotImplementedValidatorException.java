@@ -10,7 +10,7 @@ public class NotImplementedValidatorException extends Exception {
 	@Override
 	public String getMessage() {
 		
-		return String.format("%s, %s","Validador de usu·rio n„o implementado", super.getMessage());
+		return String.format("%s, %s","Validador de usu√°rio n√£o implementado", super.getMessage());
 	}
 
 }

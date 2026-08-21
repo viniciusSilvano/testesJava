@@ -14,6 +14,7 @@
 		<version.infinispan>10.1.8.Final</version.infinispan>
 	</properties>
 	<dependencies>
+
 		<!-- https://mvnrepository.com/artifact/javax.ws.rs/javax.ws.rs-api -->
 		<dependency>
 			<groupId>javax.ws.rs</groupId>
@@ -111,9 +112,11 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>5.4.21.Final</version>
+			<version>5.4.2.Final</version>
+			<scope>provided</scope>
 		</dependency>
-		
+
+
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-jcache/5.4.21.Final -->
 		<dependency>
 		    <groupId>org.hibernate</groupId>
@@ -220,6 +223,33 @@
 			<plugin>
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>2.22.2</version>
+			</plugin>
+			<!-- 1. Compiler Plugin adequado ao Maven 3.9+ -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.3.1</version>
+			</plugin>
+
+			<!-- 3. WildFly Maven Plugin compatível com WildFly 19 -->
+			<plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-maven-plugin</artifactId>
+				<version>2.1.0.Final</version>
+				<configuration>
+					<hostname>localhost</hostname>
+					<port>9990</port>
+				</configuration>
 			</plugin>
 		</plugins>
 		<testResources>

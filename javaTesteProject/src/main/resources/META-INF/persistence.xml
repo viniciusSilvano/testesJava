@@ -1,34 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.2" 
-xmlns="http://xmlns.jcp.org/xml/ns/persistence" 
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
-	<persistence-unit name="javaTesteProject">
+<persistence
+		xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+            http://xmlns.jcp.org/xml/ns/persistence
+            http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+		version="2.2">
+
+	<persistence-unit
+			name="javaTesteProject"
+			transaction-type="JTA">
+
+		<!-- WildFly-managed datasource -->
+		<jta-data-source>java:/jdbc/MyH2DS</jta-data-source>
+
+
+		<properties>
+
+			<!-- Hibernate settings -->
+
+			<property
+					name="hibernate.dialect"
+					value="org.hibernate.dialect.H2Dialect"/>
+
+			<property
+					name="hibernate.show_sql"
+					value="true"/>
+
+			<property
+					name="hibernate.format_sql"
+					value="true"/>
+
+			<!-- Development only -->
+			<property
+					name="hibernate.hbm2ddl.auto"
+					value="update"/>
+
+			<!-- Only necessary if you've installed Hibernate 5.4
+                 as a WildFly module -->
+			<!--
+            <property
+                    name="jboss.as.jpa.providerModule"
+                    value="org.hibernate:5.4"/>
+            -->
+
+		</properties>
+
+	</persistence-unit>
+
+	<!--<persistence-unit name="javaTesteProject">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<jta-data-source>java:/H2DS</jta-data-source>
 		<class>org.h2.Driver</class>
-		<properties>
+		<properties>  -->
 			<!-- property name="hibernate.archive.autodetection" value="class" /-->
 			<!-- Dados da conexão -->
-			<!-- property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+			<!-- <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://192.213.102.149:5432/test" />
 			<property name="javax.persistence.jdbc.user" value="test" />
-			<property name="javax.persistence.jdbc.password" value="test" /-->
+			<property name="javax.persistence.jdbc.password" value="test" /> -->
 			
 			<!-- Propriedades do hibernate -->
-			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+			<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="false" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.hbm2ddl.auto" value="update" /> -->
 			
 			<!--  second level cache -->
-			<property name="hibernate.cache.use_second_level_cache" value="true" />
+			<!-- <property name="hibernate.cache.use_second_level_cache" value="true" />
 		    <property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.jcache.internal.JCacheRegionFactory" />
 		    <property name="hibernate.javax.cache.uri" value="ehcache.xml" />
 		    <property name="hibernate.javax.cache.provider" value="org.ehcache.jsr107.EhcacheCachingProvider" />
 
 		</properties>
-	</persistence-unit>
+	</persistence-unit> -->
 	<!-- <persistence-unit name="testeMultiplosDb1"  transaction-type="JTA">
         <description>This unit manages orders and customers.
             It does not rely on any vendor-specific features and can

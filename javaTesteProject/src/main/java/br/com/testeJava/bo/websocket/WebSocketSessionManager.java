@@ -34,10 +34,10 @@ public class WebSocketSessionManager {
 	
 	@Schedule(minute = "*/5")
 	private void checkAllSessions(){
-		System.out.println(" Checando sessıes do WebSocket ");
+		System.out.println(" Checando sess√µes do WebSocket ");
 		int sessionsQuantity = sessions.values().size();
 		sessions.values().removeIf(s -> !s.isOpen());
-		System.out.println(" Quantidade de sessıes removidas" + (sessions.values().size() - sessionsQuantity));
+		System.out.println(" Quantidade de sess√µes removidas" + (sessions.values().size() - sessionsQuantity));
 	}
 	
 	

@@ -25,12 +25,12 @@ public class ZipUtils {
         	ZipOutputStream zos = null;
         	 try{
         		 zos = new ZipOutputStream(new BufferedOutputStream(output));
-        		 System.out.println("Iniciando compress„o");
+        		 System.out.println("Iniciando compress√£o");
         		 zos.setLevel(Deflater.NO_COMPRESSION);
         		 System.out.println("Output to Zip : " + OUTPUT_ZIP_FILE_NAME);
         		 new RecuperadorArquivoObservable(source,SOURCE_FOLDER,zos,true,buffer).generateFileList(new File(SOURCE_FOLDER));
         		 
-                 System.out.println("Compress„o finalizada em: " + (System.currentTimeMillis() - inicioCompressao));
+                 System.out.println("Compress√£o finalizada em: " + (System.currentTimeMillis() - inicioCompressao));
              }finally {
             	 zos.close();
              }

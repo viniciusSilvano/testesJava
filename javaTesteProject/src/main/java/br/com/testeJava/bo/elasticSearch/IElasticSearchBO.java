@@ -33,7 +33,7 @@ public abstract class IElasticSearchBO{
 			try {
 				client.close();
 			} catch (IOException e) {
-				System.out.println("Erro ao tentar fechar conex„o com o ElasticSearch");
+				System.out.println("Erro ao tentar fechar conex√£o com o ElasticSearch");
 			}
 		}
 	}
@@ -46,7 +46,7 @@ public abstract class IElasticSearchBO{
 			try {
 				client.close();
 			} catch (IOException e) {
-				System.out.println("Erro ao tentar fechar conex„o com o ElasticSearch");
+				System.out.println("Erro ao tentar fechar conex√£o com o ElasticSearch");
 			}
 		}
 	}
@@ -66,7 +66,7 @@ public abstract class IElasticSearchBO{
 			try {
 				client.close();
 			} catch (IOException e) {
-				System.out.println("Erro ao tentar fechar conex„o com o ElasticSearch");
+				System.out.println("Erro ao tentar fechar conex√£o com o ElasticSearch");
 			}
 		}
 		throw new IllegalStateException();

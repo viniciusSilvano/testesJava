@@ -13,9 +13,9 @@ public class ComparacaoSegundos implements TestExecuter {
 		long diffBilheteExistente = ChronoUnit.SECONDS.between(horaChamada, LocalDateTime.of(2020,8,18,13,0,30));
 		long diffBilheteNovo = ChronoUnit.SECONDS.between(horaChamada, LocalDateTime.of(2020,8,18,13,0,50));
 		if (diffBilheteNovo < diffBilheteExistente) {
-			LOG.info("diffBilheteNovo é menor");
+			LOG.info("diffBilheteNovo Ã© menor");
 		} else {
-			LOG.info("diffBilheteExistente é menor");
+			LOG.info("diffBilheteExistente Ã© menor");
 		}
 	}
 }

@@ -66,7 +66,7 @@ public class LivroService extends BaseService {
 
 	public LivroDto consultarLivroPorId(Long id) {
 		if (id == null || id.longValue() < 0) {
-			throw new IllegalArgumentException("id inválido");
+			throw new IllegalArgumentException("id invÃ¡lido");
 		}
 		Optional<LivroDto> livroDtoOptional;
 		livroDtoOptional = Optional.ofNullable(cacheLivro.recuperar(id));
