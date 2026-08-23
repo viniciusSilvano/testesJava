@@ -1,13 +1,7 @@
 package br.com.testeJava.rest.pessoa;
 
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -16,7 +10,11 @@ import br.com.testeJava.bo.BaseService;
 import br.com.testeJava.bo.pessoa.ColaboradorService;
 import br.com.testeJava.bo.pessoa.qualifier.ColaboradorServiceQualifier;
 import br.com.testeJava.entity.pessoa.Colaborador;
+import br.com.testeJava.exception.JavaTesteProjectException;
 import br.com.testeJava.rest.BaseRest;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
+import java.util.Optional;
 
 @Path("/colaborador")
 public class ColaboradorRest extends BaseRest {
@@ -35,7 +33,7 @@ public class ColaboradorRest extends BaseRest {
 	@Consumes(value = {MediaType.APPLICATION_JSON})
 	public Response saveOrUpdate(Colaborador entidade) throws Exception {
 		try {
-			getService().saveOrUpdate(entidade);
+			getService().saveOrUpdateAndIndexElastic(entidade);
 			return Response.status(Status.CREATED).build();
 		}catch(Exception e) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e).build();
@@ -71,6 +69,32 @@ public class ColaboradorRest extends BaseRest {
 			return Response.status(Status.ACCEPTED).entity(parseListToJsonString(getService().listAll())).build();
 		}catch(Exception e) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e).build();
+		}
+	}
+
+	@POST
+	public Response criarNovoColaborador(@FormParam("nome") String nome){
+		Colaborador colaborador = new Colaborador();
+		colaborador.setNome(nome);
+		try {
+			this.getService().validarNovoColaborador(colaborador);
+			this.getService().saveOrUpdate(colaborador);
+		} catch (JavaTesteProjectException e) {
+			return Response.status(e.getStatus()).entity(e.getMessage()).build();
+		} catch (Exception e) {
+			return Response.serverError().build();
+		}
+		return Response.ok().build();
+	}
+
+	@GET
+	@Path("/criteria-test")
+	@Produces(value = MediaType.APPLICATION_JSON)
+	public Response realizarTesteCriteria(@QueryParam("nome") String nome){
+		try {
+			return Response.ok(parseListToJsonString(this.getService().realizarTesteCriteria(Optional.ofNullable(nome)))).build();
+		} catch (Exception e) {
+			return Response.serverError().build();
 		}
 	}
 	

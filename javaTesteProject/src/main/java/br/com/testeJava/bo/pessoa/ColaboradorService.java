@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.ejb.Stateless;
@@ -12,7 +14,10 @@ import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 
+import br.com.testeJava.exception.JavaTesteProjectException;
+import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.index.query.MatchQueryBuilder;
@@ -52,6 +57,10 @@ public class ColaboradorService extends BaseService<Colaborador>{
 	protected BaseDAO<Colaborador> getDAO() {
 		return dao;
 	}
+
+	protected ColaboradorDAO getDAOImpl(){
+		return (ColaboradorDAO) getDAO();
+	}
 		
 	public List<ColaboradorDTO> searchByName(String nome) {
 		SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
@@ -83,16 +92,31 @@ public class ColaboradorService extends BaseService<Colaborador>{
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void saveOrUpdate(IEntidade entidade) throws IOException {
+	public void saveOrUpdateAndIndexElastic(IEntidade entidade) throws IOException {
 		try {
-			getDAO().saveOrUpdate(entidade);
+			this.saveOrUpdate(entidade);
 			elasticService.inserirIndiceDocumento(entidade,ELASTIC_SEARCH_INDEX_GENERICO,ELASTIC_SEARCH_INDEX_COLABORADOR);
 		} catch (IOException e) {
 			throw e;
-		}	
+		}
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void saveOrUpdate(IEntidade entidade) throws IOException {
+		getDAO().saveOrUpdate(entidade);
 	}
 
 	public void atualizarNomePorId(int id, String nome) {
-		((ColaboradorDAO) getDAO()).atualizarNomePorId(id,nome);
+		getDAOImpl().atualizarNomePorId(id,nome);
 	}
+
+	public void validarNovoColaborador(Colaborador colaborador) throws JavaTesteProjectException {
+		if(StringUtils.isEmpty(colaborador.getNome())){
+			throw new JavaTesteProjectException("O nome do colaborador deve ser preenchido!", Response.Status.BAD_REQUEST);
+		}
+	}
+
+    public List<Colaborador> realizarTesteCriteria(Optional<String> nome) {
+		return this.getDAOImpl().listAllWithCriteria(nome);
+    }
 }

@@ -20,7 +20,7 @@ import br.com.testeJava.entity.profissoes.Profissao;
 @Table(name = "TB_COLABORADOR")
 public class Colaborador implements Pessoa {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID_COLABORADOR")
 	private Long id;
 	

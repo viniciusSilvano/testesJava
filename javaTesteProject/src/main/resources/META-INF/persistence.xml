@@ -31,6 +31,8 @@
 					name="hibernate.format_sql"
 					value="true"/>
 
+			<!--<property name="hibernate.use_sql_comments" value="true" />-->
+
 			<!-- Development only -->
 			<property
 					name="hibernate.hbm2ddl.auto"
