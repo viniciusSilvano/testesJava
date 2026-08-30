@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  wildfly:
+    image: jboss/wildfly:19.0.0.Final
+    container_name: wildfly-v19-java8
+    ports:
+      - "8080:8080"
+      - "9990:9990"
+    volumes:
+      - ./deployments:/opt/jboss/wildfly/standalone/deployments
+    command: |
+      bash -c '
+      /opt/jboss/wildfly/bin/jboss-cli.sh --file=/dev/stdin <<EOF
+      embed-server --server-config=standalone.xml
+      /subsystem=datasources/data-source=MyH2DS:add(jndi-name=java:/jdbc/MyH2DS,connection-url="jdbc:h2:mem:mydb;DB_CLOSE_DELAY=-1",driver-name=h2,user-name=sa,password=sa,min-pool-size=5,max-pool-size=20,pool-prefill=true,enabled=true)
+      stop-embedded-server
+      EOF
+      /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0
+      '
