@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import br.com.testeJava.entity.testeTransacaoConcorrentes.Imovel;
 import org.hibernate.MultiIdentifierLoadAccess;
 import org.hibernate.Session;
 
@@ -27,6 +28,10 @@ public abstract class BaseDAO<T> {
 		Session session = this.getSession();
 		session.save(entidade);
 	};
+
+	public void saveEntityManager(IEntidade entidade) {
+		this.getEntityManager().persist(entidade);
+	}
 	
 	public void saveOrUpdate(IEntidade entidade) {
 		Session session = this.getSession();
@@ -38,6 +43,10 @@ public abstract class BaseDAO<T> {
 		List<T> entitys = multiLoadAccess.multiLoad(ids);
 		return entitys;
 	}
+
+	public T get(Class<T> classe,Long id){
+		return this.getEntityManager().find(classe,id);
+	}
 	
 	@SuppressWarnings("unchecked")
 	public List<T> listAll(Class<T> target, boolean isCacheable){
@@ -48,4 +57,8 @@ public abstract class BaseDAO<T> {
 		this.getSession().getSessionFactory().getCache().evict(target);
 	}
 
+
+	public void flush(){
+		this.getEntityManager().flush();
+	}
 }
