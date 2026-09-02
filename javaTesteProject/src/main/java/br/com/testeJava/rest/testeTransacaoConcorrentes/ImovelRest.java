@@ -3,14 +3,19 @@ package br.com.testeJava.rest.testeTransacaoConcorrentes;
 
 import br.com.testeJava.bo.BaseService;
 import br.com.testeJava.bo.testeTransacaoConcorrentes.ImovelBo;
+import br.com.testeJava.dto.testeTransacaoConcorrentes.ImovelChecarAlteracaoDto;
+import br.com.testeJava.entity.testeTransacaoConcorrentes.Cidade;
 import br.com.testeJava.entity.testeTransacaoConcorrentes.Imovel;
 import br.com.testeJava.rest.BaseRest;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import javax.inject.Inject;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
+import java.util.Objects;
 
 @Path("/teste/imovel")
 public class ImovelRest extends BaseRest {
@@ -30,9 +35,52 @@ public class ImovelRest extends BaseRest {
     @POST
     public Response salvar(Imovel imovel){
         try{
-            Imovel imovelSalvo = getServiceImpl().salvar(imovel);
-            return Response.ok().entity(parseObjectToStringJSON(imovel)).build();
+            //no código real, devo levar esta chamada para o service, dentro da transação required
+            //this.simularOutrosSalvamentos(imovelDb);
+            ImovelChecarAlteracaoDto imovelTela =  new ImovelChecarAlteracaoDto(imovel);
+            Imovel imovelSalvo = getServiceImpl().salvar(imovel,imovelTela);
+
+            return Response.ok().entity(parseObjectToStringJSON(imovelSalvo)).build();
         }catch (Exception e){
+            return Response.serverError().entity(ExceptionUtils.getStackTrace(e)).build();
+        }
+    }
+
+    @GET
+    public Response recuperarImoveis(){
+        try{
+            return Response.ok().entity(parseListToJsonString(this.getServiceImpl().getImovelComCibs())).build();
+        } catch (Exception e) {
+            return Response.serverError().entity(ExceptionUtils.getStackTrace(e)).build();
+        }
+    }
+
+    @GET
+    @Path("/cibs")
+    public Response recuperarCibs(){
+        try{
+            return Response.ok().entity(parseListToJsonString(this.getServiceImpl().getCibs())).build();
+        } catch (Exception e) {
+            return Response.serverError().entity(ExceptionUtils.getStackTrace(e)).build();
+        }
+    }
+
+    @GET
+    @Path("/count")
+    public Response contagemImoveis(){
+        try{
+            return Response.ok().entity(this.getServiceImpl().getContagemImoveis()).build();
+        } catch (Exception e) {
+            return Response.serverError().entity(ExceptionUtils.getStackTrace(e)).build();
+        }
+    }
+
+    @DELETE
+    public Response removeAll(){
+        try{
+            this.imovelBo.removeAll();
+            return Response.ok().build();
+        } catch (Exception e) {
             return Response.serverError().entity(ExceptionUtils.getStackTrace(e)).build();
         }
     }

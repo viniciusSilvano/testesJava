@@ -61,4 +61,12 @@ public abstract class BaseDAO<T> {
 	public void flush(){
 		this.getEntityManager().flush();
 	}
+
+	public void detach(T entidade){
+		this.getEntityManager().detach(entidade);
+	}
+
+	public T merge(T entidade) {
+		return this.getEntityManager().merge(entidade);
+	}
 }

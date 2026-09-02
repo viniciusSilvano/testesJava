@@ -3,7 +3,9 @@ package br.com.testeJava.entity.testeTransacaoConcorrentes;
 import br.com.testeJava.entity.IEntidade;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @PersistenceUnit(name = "javaTesteProject")
@@ -17,8 +19,19 @@ public class Imovel implements IEntidade {
     @Column(name = "nome")
     private String nome;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Cib> cibs;
+    @OneToMany(
+            mappedBy = "imovel",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Cib> cibs = new ArrayList<>();
+
+    @Column
+    private String car;
+
+    @OneToOne
+    private Cidade cidade;
 
     @Column
     private String situacaoCar;
@@ -53,5 +66,49 @@ public class Imovel implements IEntidade {
 
     public void setSituacaoCar(String situacaoCar) {
         this.situacaoCar = situacaoCar;
+    }
+
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getCar() {
+        return car;
+    }
+
+    public void setCar(String car) {
+        this.car = car;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Imovel)) return false;
+
+        Imovel imovel = (Imovel) o;
+        return id != null && Objects.equals(id, imovel.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    public void adicionarCib(Cib cib) {
+        if (cib == null) {
+            return;
+        }
+
+        cibs.add(cib);
+        cib.setImovel(this);
+    }
+
+    public void removerCib(Cib cib) {
+        cibs.remove(cib);
+        cib.setImovel(null);
     }
 }

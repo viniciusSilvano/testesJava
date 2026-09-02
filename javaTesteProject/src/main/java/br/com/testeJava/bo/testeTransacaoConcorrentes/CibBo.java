@@ -24,11 +24,16 @@ public class CibBo extends BaseService<Cib> {
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void save(Cib cib) {
+    public void saveEntityManager(Cib cib) {
         dao.saveEntityManager(cib);
     }
 
     public void flush() {
         dao.flush();
     }
+
+    public void detach(Cib cib){
+        this.getDAO().detach(cib);
+    }
+
 }

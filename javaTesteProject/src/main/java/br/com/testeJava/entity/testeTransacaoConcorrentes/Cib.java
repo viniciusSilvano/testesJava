@@ -1,8 +1,11 @@
 package br.com.testeJava.entity.testeTransacaoConcorrentes;
 
 import br.com.testeJava.entity.IEntidade;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @PersistenceUnit(name = "javaTesteProject")
@@ -19,6 +22,11 @@ public class Cib implements IEntidade {
 
     @Column(name = "SITUACAO_CIB")
     private String situacaoCib;
+
+    @ManyToOne
+    @JoinColumn(name = "ID_IMOVEL")
+    @JsonIgnore
+    private Imovel imovel;
 
     public Long getId() {
         return id;
@@ -42,5 +50,27 @@ public class Cib implements IEntidade {
 
     public void setSituacaoCib(String situacaoCib) {
         this.situacaoCib = situacaoCib;
+    }
+
+    public Imovel getImovel() {
+        return imovel;
+    }
+
+    public void setImovel(Imovel imovel) {
+        this.imovel = imovel;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cib)) return false;
+
+        Cib cib = (Cib) o;
+        return id != null && Objects.equals(id, cib.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

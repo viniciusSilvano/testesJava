@@ -1,6 +1,8 @@
 package br.com.testeJava.bo;
 
 import br.com.testeJava.dao.BaseDAO;
+import br.com.testeJava.entity.IEntidade;
+import br.com.testeJava.entity.testeTransacaoConcorrentes.Cib;
 import br.com.testeJava.interfaces.ITempoTestavel;
 
 public abstract class BaseService<T> {
@@ -12,5 +14,5 @@ public abstract class BaseService<T> {
 		Long tempoFim = (System.currentTimeMillis() - inicio)/1000;
 		System.out.println( String.format("levou %d segundos", tempoFim));
 		return tempoFim;
-	}	
+	}
 }
