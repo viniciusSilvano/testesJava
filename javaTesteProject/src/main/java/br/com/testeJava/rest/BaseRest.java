@@ -16,9 +16,9 @@ import br.com.testeJava.interfaces.IJsonMarshaller;
 import br.com.testeJava.util.JsonUtils;
 
 
-public abstract class BaseRest implements IJsonMarshaller{
+public abstract class BaseRest<T> implements IJsonMarshaller{
 
-	protected abstract BaseService getService();
+	protected abstract BaseService<T> getService();
 
 	@Override
 	public ObjectMapper getObjectMapper() {
