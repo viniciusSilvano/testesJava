@@ -1,11 +1,11 @@
 package br.com.testeJava.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import br.com.testeJava.entity.testeTransacaoConcorrentes.Imovel;
 import org.hibernate.MultiIdentifierLoadAccess;
 import org.hibernate.Session;
 
@@ -24,9 +24,9 @@ public abstract class BaseDAO<T> {
 		return this.getEntityManager().unwrap(Session.class);
 	} 
 	
-	public void  save(IEntidade entidade) {
+	public Serializable save(IEntidade entidade) {
 		Session session = this.getSession();
-		session.save(entidade);
+		return session.save(entidade);
 	};
 
 	public void saveEntityManager(IEntidade entidade) {
@@ -51,6 +51,10 @@ public abstract class BaseDAO<T> {
 	@SuppressWarnings("unchecked")
 	public List<T> listAll(Class<T> target, boolean isCacheable){
 		return this.getSession().createQuery(String.format(" SELECT alvo FROM %s alvo ", target.getSimpleName())).setCacheable(isCacheable).list();
+	}
+
+	public void remove(IEntidade entidade){
+		this.getSession().remove(entidade);
 	}
 	
 	public void evictSecondLevelCache(Class<T> target) {

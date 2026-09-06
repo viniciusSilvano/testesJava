@@ -49,7 +49,7 @@ public class ImovelBo extends BaseService<Imovel> {
                 cib.setImovel(imovel);
             }
 
-            getDaoImpl().saveEntityManager(imovel);
+            imovel.setId((Long) getDaoImpl().save(imovel));
             getDaoImpl().flush();
 
             imovelDb  = imovel;
@@ -92,13 +92,18 @@ public class ImovelBo extends BaseService<Imovel> {
                     cibDb.setSituacaoCib(cibTela.getSituacaoCib());
                 }
             }
+
+            getDaoImpl().saveOrUpdate(imovelDb);
+            getDaoImpl().flush();
         }
 
 
         atualizarSituacaoCibs(imovelDb);
         atualizarSituacaoCar(imovelDb);
 
+        getDaoImpl().saveOrUpdate(imovelDb);
         getDaoImpl().flush();
+
         /*if(executarCar && executarCib){
             atualizarSituacaoCibs(imovel);
             atualizarSituacaoCar(imovel);
@@ -110,7 +115,6 @@ public class ImovelBo extends BaseService<Imovel> {
 
         //no código real, devo trazer essa chamada que era do rest para cá.
         this.simularOutrosSalvamentos(imovelDb);
-        getDaoImpl().flush();
         return imovelDb;
 
     }
@@ -122,8 +126,6 @@ public class ImovelBo extends BaseService<Imovel> {
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void atualizarSituacaoCar(Imovel imovel) {
         imovel.setSituacaoCar("situação teste car");
-        this.dao.saveEntityManager(imovel);
-        this.dao.flush();
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -131,8 +133,6 @@ public class ImovelBo extends BaseService<Imovel> {
         for(Cib cib : imovel.getCibs()){
             cib.setSituacaoCib("situação teste cib");
         }
-        this.getDaoImpl().save(imovel);
-        this.getDaoImpl().flush();
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)

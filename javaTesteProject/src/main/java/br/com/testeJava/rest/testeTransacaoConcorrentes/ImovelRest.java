@@ -4,7 +4,6 @@ package br.com.testeJava.rest.testeTransacaoConcorrentes;
 import br.com.testeJava.bo.BaseService;
 import br.com.testeJava.bo.testeTransacaoConcorrentes.ImovelBo;
 import br.com.testeJava.dto.testeTransacaoConcorrentes.ImovelChecarAlteracaoDto;
-import br.com.testeJava.entity.testeTransacaoConcorrentes.Cidade;
 import br.com.testeJava.entity.testeTransacaoConcorrentes.Imovel;
 import br.com.testeJava.rest.BaseRest;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -15,7 +14,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
-import java.util.Objects;
 
 @Path("/teste/imovel")
 public class ImovelRest extends BaseRest {
@@ -36,7 +34,7 @@ public class ImovelRest extends BaseRest {
     public Response salvar(Imovel imovel){
         try{
             //no código real, devo levar esta chamada para o service, dentro da transação required
-            //this.simularOutrosSalvamentos(imovelDb);
+            //this.simularOutrosSalvamentos(imovel);
             ImovelChecarAlteracaoDto imovelTela =  new ImovelChecarAlteracaoDto(imovel);
             Imovel imovelSalvo = getServiceImpl().salvar(imovel,imovelTela);
 
@@ -83,6 +81,10 @@ public class ImovelRest extends BaseRest {
         } catch (Exception e) {
             return Response.serverError().entity(ExceptionUtils.getStackTrace(e)).build();
         }
+    }
+
+    public void simularOutrosSalvamentos(Imovel imovel) {
+        imovelBo.simularOutrosSalvamentos(imovel);
     }
 
 }
