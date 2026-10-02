@@ -9,10 +9,7 @@ import br.com.testeJava.rest.BaseRest;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import javax.inject.Inject;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
 @Path("/teste/imovel")
@@ -36,9 +33,20 @@ public class ImovelRest extends BaseRest {
             //no código real, devo levar esta chamada para o service, dentro da transação required
             //this.simularOutrosSalvamentos(imovel);
             ImovelChecarAlteracaoDto imovelTela =  new ImovelChecarAlteracaoDto(imovel);
-            Imovel imovelSalvo = getServiceImpl().salvar(imovel,imovelTela);
+            Imovel imovelSalvo = getServiceImpl().salvar(imovel);
 
             return Response.ok().entity(parseObjectToStringJSON(imovelSalvo)).build();
+        }catch (Exception e){
+            return Response.serverError().entity(ExceptionUtils.getStackTrace(e)).build();
+        }
+    }
+
+    @POST
+    @Path("teste-registro-erro/{id}")
+    public Response salvarRegistroErroImovel(@PathParam("id") Long id){
+        try{
+            this.imovelBo.salvarComHistoricoErro(id);
+            return Response.ok().build();
         }catch (Exception e){
             return Response.serverError().entity(ExceptionUtils.getStackTrace(e)).build();
         }

@@ -38,7 +38,7 @@ public class ImovelBo extends BaseService<Imovel> {
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public Imovel salvar(Imovel imovel, ImovelChecarAlteracaoDto imovelTela){
+    public Imovel salvar(Imovel imovel){
         boolean executarCib = false;
         boolean executarCar = false;
 
@@ -48,6 +48,8 @@ public class ImovelBo extends BaseService<Imovel> {
             for (Cib cib : imovel.getCibs()) {
                 cib.setImovel(imovel);
             }
+
+            getDaoImpl().save(imovel.getCidade());
 
             imovel.setId((Long) getDaoImpl().save(imovel));
             getDaoImpl().flush();
@@ -117,6 +119,28 @@ public class ImovelBo extends BaseService<Imovel> {
         this.simularOutrosSalvamentos(imovelDb);
         return imovelDb;
 
+    }
+
+
+    public void salvarComHistoricoErro(Long id){
+        Imovel imovelDb = getDaoImpl().get(Imovel.class, id);
+        if(this.salvarComHistoricoErro2(imovelDb)){
+            Cidade cidade = new Cidade();
+            cidade.setNome("cidade do erro");
+            imovelDb.setCidade(cidade);
+            this.getDaoImpl().saveEntityManager(cidade);
+        }
+    }
+
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public boolean salvarComHistoricoErro2(Imovel imovel){
+        try{
+            this.salvar(imovel);
+            throw new RuntimeException("Teste erro");
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return true;
+        }
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
