@@ -42,6 +42,21 @@ public class ImovelRest extends BaseRest {
     }
 
     @POST
+    @Path("salvar-2")
+    public Response salvarDois(Imovel imovel){
+        try{
+            //no código real, devo levar esta chamada para o service, dentro da transação required
+            //this.simularOutrosSalvamentos(imovel);
+            ImovelChecarAlteracaoDto imovelTela =  new ImovelChecarAlteracaoDto(imovel);
+            Imovel imovelSalvo = getServiceImpl().salvarDois(imovel);
+
+            return Response.ok().entity(parseObjectToStringJSON(imovelSalvo)).build();
+        }catch (Exception e){
+            return Response.serverError().entity(ExceptionUtils.getStackTrace(e)).build();
+        }
+    }
+
+    @POST
     @Path("teste-registro-erro/{id}")
     public Response salvarRegistroErroImovel(@PathParam("id") Long id){
         try{

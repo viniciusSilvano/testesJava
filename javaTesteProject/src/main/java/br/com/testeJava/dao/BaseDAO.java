@@ -37,6 +37,10 @@ public abstract class BaseDAO<T> {
 		Session session = this.getSession();
 		session.saveOrUpdate(entidade);
 	};
+
+	public T getReference(Class<T> target,Long id){
+		return this.getEntityManager().getReference(target,id);
+	}
 	
 	public List<T>  ListByIds(List<Long> ids, Class<T> target) {
 		MultiIdentifierLoadAccess<T> multiLoadAccess = getSession().byMultipleIds(target);

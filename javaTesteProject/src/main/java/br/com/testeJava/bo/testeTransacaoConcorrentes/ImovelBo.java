@@ -28,6 +28,9 @@ public class ImovelBo extends BaseService<Imovel> {
     @ImovelDAOQualifier
     private BaseDAO<Imovel> dao;
 
+    @Inject
+    private CibBo cibBo;
+
     @Override
     protected BaseDAO<Imovel> getDAO() {
         return dao;
@@ -119,6 +122,50 @@ public class ImovelBo extends BaseService<Imovel> {
         this.simularOutrosSalvamentos(imovelDb);
         return imovelDb;
 
+    }
+
+
+    public Imovel salvarDois(Imovel imovel){
+        Imovel imovelDb = null;
+        if (imovel.getId() == null) {
+
+            List<Cib> listaFilhos = imovel.getCibs();
+
+            getDaoImpl().saveEntityManager(imovel);
+            getDaoImpl().flush();
+
+            atualizarCibsRequiresNew(listaFilhos,imovel.getId());
+
+        }else {
+
+            imovelDb = getDaoImpl().get(Imovel.class, imovel.getId());
+
+            imovelDb.setNome(imovel.getNome());
+            imovelDb.setCar(imovel.getCar());
+            imovelDb.setCidade(imovel.getCidade());
+
+            getDAO().merge(imovelDb);
+        }
+        return imovelDb;
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public void atualizarCibsRequiresNew(List<Cib> listaFilhos, Long id) {
+        Imovel imovelDb =  getDAO().getReference(Imovel.class,id);
+
+        int contagem = 0;
+        for(Cib cib: listaFilhos){
+            try {
+                if (contagem == 0) {
+                    contagem++;
+                    throw new RuntimeException("teste");
+                }
+                cib.setImovel(imovelDb);
+                getDAO().save(cib);
+            }catch (Exception e){
+
+            }
+        }
     }
 
 
