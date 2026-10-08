@@ -27,6 +27,14 @@ public class Imovel implements IEntidade {
     )
     private List<Cib> cibs = new ArrayList<>();
 
+    @OneToMany(
+            mappedBy = "imovel",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<GrupoHistorico> grupos = new ArrayList<>();
+
     @Column
     private String car;
 
@@ -84,6 +92,28 @@ public class Imovel implements IEntidade {
         this.car = car;
     }
 
+    public void adicionarCib(Cib cib) {
+        if (cib == null) {
+            return;
+        }
+
+        cibs.add(cib);
+        cib.setImovel(this);
+    }
+
+    public void removerCib(Cib cib) {
+        cibs.remove(cib);
+        cib.setImovel(null);
+    }
+
+    public List<GrupoHistorico> getGrupos() {
+        return grupos;
+    }
+
+    public void setGrupos(List<GrupoHistorico> grupos) {
+        this.grupos = grupos;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -98,17 +128,14 @@ public class Imovel implements IEntidade {
         return getClass().hashCode();
     }
 
-    public void adicionarCib(Cib cib) {
-        if (cib == null) {
-            return;
+    public void adicionarGrupoHistorico(GrupoHistorico grupoHistorico) {
+        grupoHistorico.setImovel(this);
+        if(grupos == null ){
+            grupos = new ArrayList<>();
         }
 
-        cibs.add(cib);
-        cib.setImovel(this);
-    }
-
-    public void removerCib(Cib cib) {
-        cibs.remove(cib);
-        cib.setImovel(null);
+        if(!grupos.contains(grupoHistorico) || grupoHistorico.getId() == null){
+            grupos.add(grupoHistorico);
+        }
     }
 }

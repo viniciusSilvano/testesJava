@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
+import java.util.List;
 
 @Stateless
 public class CibBo extends BaseService<Cib> {
@@ -34,6 +35,10 @@ public class CibBo extends BaseService<Cib> {
 
     public void detach(Cib cib){
         this.getDAO().detach(cib);
+    }
+
+    public List<Cib> buscarCibsPorIdImovel(Long idImovel){
+        return this.getDAO().buscarCibsPorIdImovel(idImovel);
     }
 
 }

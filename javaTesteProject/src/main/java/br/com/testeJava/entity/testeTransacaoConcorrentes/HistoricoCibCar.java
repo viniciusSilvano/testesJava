@@ -29,6 +29,17 @@ public class HistoricoCibCar implements IEntidade {
     @JsonIgnore
     private HistoricoCibCar historicoCar;
 
+    @ManyToOne
+    @JoinColumn(name = "ID_IMOVEL")
+    @JsonIgnore
+    private Imovel imovel;
+
+
+    @ManyToOne
+    @JoinColumn(name = "ID_GRUPO")
+    @JsonIgnore
+    private GrupoHistorico grupo;
+
     @Column
     private String situacaoCar;
 
@@ -95,6 +106,22 @@ public class HistoricoCibCar implements IEntidade {
 
     public void setIrregular(boolean irregular) {
         this.irregular = irregular;
+    }
+
+    public Imovel getImovel() {
+        return imovel;
+    }
+
+    public void setImovel(Imovel imovel) {
+        this.imovel = imovel;
+    }
+
+    public GrupoHistorico getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(GrupoHistorico grupo) {
+        this.grupo = grupo;
     }
 
     @Override

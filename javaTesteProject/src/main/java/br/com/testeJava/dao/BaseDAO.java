@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
+import br.com.testeJava.entity.testeTransacaoConcorrentes.Cib;
 import org.hibernate.MultiIdentifierLoadAccess;
 import org.hibernate.Session;
 
@@ -77,4 +79,10 @@ public abstract class BaseDAO<T> {
 	public T merge(T entidade) {
 		return this.getEntityManager().merge(entidade);
 	}
+
+    public List<Cib> buscarCibsPorIdImovel(Long idImovel) {
+		String jpql = "SELECT cib FROM Cib.imovel = :idImovel ";
+		TypedQuery<Cib> query = getEntityManager().createQuery(jpql,Cib.class);
+		return query.getResultList();
+    }
 }

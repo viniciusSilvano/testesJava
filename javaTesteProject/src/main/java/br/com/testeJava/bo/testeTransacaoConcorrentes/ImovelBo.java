@@ -4,9 +4,13 @@ import br.com.testeJava.bo.BaseService;
 import br.com.testeJava.dao.BaseDAO;
 import br.com.testeJava.dao.testeTransacaoConcorrentes.ImovelDAO;
 import br.com.testeJava.dao.testeTransacaoConcorrentes.qualifier.ImovelDAOQualifier;
-import br.com.testeJava.dto.testeTransacaoConcorrentes.ImovelChecarAlteracaoDto;
+import br.com.testeJava.dto.testeTransacaoConcorrentes.CibDto;
+import br.com.testeJava.dto.testeTransacaoConcorrentes.GrupoHistoricoDto;
+import br.com.testeJava.dto.testeTransacaoConcorrentes.HistoricoDto;
+import br.com.testeJava.dto.testeTransacaoConcorrentes.ImovelRespostaDto;
 import br.com.testeJava.entity.testeTransacaoConcorrentes.Cib;
 import br.com.testeJava.entity.testeTransacaoConcorrentes.Cidade;
+import br.com.testeJava.entity.testeTransacaoConcorrentes.GrupoHistorico;
 import br.com.testeJava.entity.testeTransacaoConcorrentes.Imovel;
 
 import javax.ejb.Stateless;
@@ -14,6 +18,9 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Stateless
 public class ImovelBo extends BaseService<Imovel> {
@@ -30,6 +37,9 @@ public class ImovelBo extends BaseService<Imovel> {
 
     @Inject
     private CibBo cibBo;
+
+    @Inject
+    private GrupoHistoricoBo grupoHistoricoBo;
 
     @Override
     protected BaseDAO<Imovel> getDAO() {
@@ -131,10 +141,11 @@ public class ImovelBo extends BaseService<Imovel> {
 
             List<Cib> listaFilhos = imovel.getCibs();
 
+            umMetodoNotSupported(listaFilhos);
             getDaoImpl().saveEntityManager(imovel);
             getDaoImpl().flush();
 
-            atualizarCibsRequiresNew(listaFilhos,imovel.getId());
+            atualizarCibs(listaFilhos,imovel.getId());
 
         }else {
 
@@ -149,23 +160,60 @@ public class ImovelBo extends BaseService<Imovel> {
         return imovelDb;
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-    public void atualizarCibsRequiresNew(List<Cib> listaFilhos, Long id) {
-        Imovel imovelDb =  getDAO().getReference(Imovel.class,id);
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public Imovel salvarTres(Imovel imovel){
+        Imovel imovelBd = getDaoImpl().getReference(Imovel.class,imovel.getId());
+        List<Cib> cibsBd = cibBo.buscarCibsPorIdImovel(imovel.getId());
+        for(Cib cibTela : imovel.getCibs()) {
 
-        int contagem = 0;
-        for(Cib cib: listaFilhos){
+            if(cibTela.getId() != null){
+                Optional<Cib> cibBdOpt = cibsBd.stream().filter(cibTelaAFiltrar -> cibTelaAFiltrar.getId().equals(cibTela.getId())).findFirst();
+                if(cibBdOpt.isPresent()){
+                    cibTela.setSituacaoCib(cibBdOpt.get().getSituacaoCib());
+                    getDaoImpl().atualizarCibsBulkUpdate(cibTela);
+                }else{
+                    throw new IllegalStateException();
+                }
+            }else{
+                Cib cib = new Cib();
+            }
+
+        }
+        return getDaoImpl().get(Imovel.class,imovel.getId());
+    }
+
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public void umMetodoNotSupported(List<Cib> listaFilhos) {
+        listaFilhos.size();
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void atualizarCibs(List<Cib> listaFilhos, Long id) {
+        Imovel imovelDb =  getDAO().get(Imovel.class,id);
+
+        AtomicInteger contagem = new AtomicInteger();
+
+
+        atualizarCib(listaFilhos,imovelDb,contagem);
+
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void atualizarCib(List<Cib> listaFilhos,Imovel imovelDb,AtomicInteger contagem){
+        for(Cib cib: listaFilhos) {
             try {
-                if (contagem == 0) {
-                    contagem++;
+                if (contagem.get() == 0) {
+                    contagem.incrementAndGet();
                     throw new RuntimeException("teste");
                 }
                 cib.setImovel(imovelDb);
-                getDAO().save(cib);
-            }catch (Exception e){
-
+                grupoHistoricoBo.adicionarHistorico(imovelDb);
+            } catch (Exception e) {
+                grupoHistoricoBo.adicionarHistoricoErro(imovelDb);
             }
         }
+
+        getDAO().merge(imovelDb);
     }
 
 
@@ -217,8 +265,25 @@ public class ImovelBo extends BaseService<Imovel> {
         this.getDaoImpl().flush();
     }
 
-    public List<Imovel> getImovelComCibs(){
-        return this.getDaoImpl().getImovelComCibs();
+    public List<ImovelRespostaDto> getImovelResultante(){
+        List<Imovel> imoveis = this.getDaoImpl().getImovelComCibs();
+
+        List<ImovelRespostaDto> imoveisDto = imoveis.stream().map(imovelEntity -> {
+            ImovelRespostaDto imovelRespostaDto = new ImovelRespostaDto(imovelEntity);
+            imovelRespostaDto.setCibs(imovelEntity.getCibs().stream().map(CibDto::new).collect(Collectors.toList()));
+            return imovelRespostaDto;
+        }).collect(Collectors.toList());
+
+        for(ImovelRespostaDto imovelRespostaDto : imoveisDto) {
+            List<GrupoHistorico> grupoHistoricos = this.grupoHistoricoBo.recuperarPorImovel(imovelRespostaDto.getId());
+            imovelRespostaDto.setGrupos(grupoHistoricos.stream().map(grupoHistorico -> {
+                GrupoHistoricoDto grupoHistoricoDto = new GrupoHistoricoDto(grupoHistorico);
+                grupoHistoricoDto.setHistoricos(grupoHistorico.getHistoricos().stream().map(HistoricoDto::new).collect(Collectors.toList()));
+                return grupoHistoricoDto;
+            }).collect(Collectors.toList()));
+        }
+
+        return imoveisDto;
     }
 
     public Long getContagemImoveis(){

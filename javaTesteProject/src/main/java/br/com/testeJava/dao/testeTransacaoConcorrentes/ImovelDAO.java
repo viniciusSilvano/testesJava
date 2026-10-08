@@ -36,6 +36,12 @@ public class ImovelDAO extends BaseDAO<Imovel> {
     }
 
     public void removeAll() {
+        Query queryHistorico = this.getEntityManager().createQuery("DELETE FROM HistoricoCibCar historico ");
+        queryHistorico.executeUpdate();
+
+        Query queryGrupoHistorico = this.getEntityManager().createQuery("DELETE FROM GrupoHistorico grupoHistorico ");
+        queryGrupoHistorico.executeUpdate();
+
         Query queryCib = this.getEntityManager().createQuery("DELETE FROM Cib cib ");
         queryCib.executeUpdate();
 
@@ -51,5 +57,13 @@ public class ImovelDAO extends BaseDAO<Imovel> {
                 );
 
         return query.getResultList();
+    }
+
+    public void atualizarCibsBulkUpdate(Cib cib) {
+        String jpql = "UPDATE Cib SET situacaoCib = :situacaoCib WHERE id = :idCib ";
+        Query query = getEntityManager().createQuery(jpql);
+        query.setParameter("idCib",cib.getId());
+        query.setParameter("situacaoCib",cib.getSituacaoCib());
+        query.executeUpdate();
     }
 }

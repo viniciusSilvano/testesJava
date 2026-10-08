@@ -57,6 +57,21 @@ public class ImovelRest extends BaseRest {
     }
 
     @POST
+    @Path("atualizar_bulk_cibs")
+    public Response salvarTres(Imovel imovel){
+        try{
+            //no código real, devo levar esta chamada para o service, dentro da transação required
+            //this.simularOutrosSalvamentos(imovel);
+            ImovelChecarAlteracaoDto imovelTela =  new ImovelChecarAlteracaoDto(imovel);
+            Imovel imovelSalvo = getServiceImpl().salvarTres(imovel);
+
+            return Response.ok().entity(parseObjectToStringJSON(imovelSalvo)).build();
+        }catch (Exception e){
+            return Response.serverError().entity(ExceptionUtils.getStackTrace(e)).build();
+        }
+    }
+
+    @POST
     @Path("teste-registro-erro/{id}")
     public Response salvarRegistroErroImovel(@PathParam("id") Long id){
         try{
@@ -70,7 +85,7 @@ public class ImovelRest extends BaseRest {
     @GET
     public Response recuperarImoveis(){
         try{
-            return Response.ok().entity(parseListToJsonString(this.getServiceImpl().getImovelComCibs())).build();
+            return Response.ok().entity(parseListToJsonString(this.getServiceImpl().getImovelResultante())).build();
         } catch (Exception e) {
             return Response.serverError().entity(ExceptionUtils.getStackTrace(e)).build();
         }
