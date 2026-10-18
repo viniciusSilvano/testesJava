@@ -12,11 +12,13 @@ import br.com.testeJava.entity.testeTransacaoConcorrentes.Cib;
 import br.com.testeJava.entity.testeTransacaoConcorrentes.Cidade;
 import br.com.testeJava.entity.testeTransacaoConcorrentes.GrupoHistorico;
 import br.com.testeJava.entity.testeTransacaoConcorrentes.Imovel;
+import br.com.testeJava.interceptor.TimeInterceptor;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -135,6 +137,7 @@ public class ImovelBo extends BaseService<Imovel> {
     }
 
 
+    @Interceptors(TimeInterceptor.class)
     public Imovel salvarDois(Imovel imovel){
         Imovel imovelDb = null;
         if (imovel.getId() == null) {
