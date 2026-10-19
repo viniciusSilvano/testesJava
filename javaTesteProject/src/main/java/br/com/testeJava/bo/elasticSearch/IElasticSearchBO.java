@@ -17,7 +17,6 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import br.com.testeJava.entity.IEntidade;
 import br.com.testeJava.entity.pessoa.Colaborador;
 
-@Stateless
 public abstract class IElasticSearchBO{
 	
 	private RestHighLevelClient getClient() {
