@@ -170,7 +170,7 @@
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
-			<version>20190722</version>
+			<version>20260719</version>
 		</dependency>
 
 		<!-- Elastic search -->
